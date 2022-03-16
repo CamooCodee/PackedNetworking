@@ -16,7 +16,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb228b70-7236-4edf-afb2-0a430c5094cd" name="Default Changelist" comment="" />
+    <list default="true" id="cb228b70-7236-4edf-afb2-0a430c5094cd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerDetector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerDetector.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,6 +95,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -159,6 +164,7 @@
       <workItem from="1647163504431" duration="365000" />
       <workItem from="1647166720509" duration="1240000" />
       <workItem from="1647421412892" duration="4519000" />
+      <workItem from="1647445481970" duration="1734000" />
     </task>
     <servers />
   </component>

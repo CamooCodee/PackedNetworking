@@ -12,7 +12,7 @@ namespace PackedNetworking
 
         private void Start()
         {
-            if(IsServerBuild)
+            if(IsServerBuild && _serverScene.Length > 0)
                 SceneManager.LoadScene(_serverScene);
             Destroy(this);
         }

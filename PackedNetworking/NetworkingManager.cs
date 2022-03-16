@@ -29,7 +29,7 @@ namespace PackedNetworking
         
         private void Awake()
         {
-            NetworkingLogs.Set(null, null, Debug.LogError, Debug.LogError);
+            NetworkingLogs.Set(Debug.Log, Debug.LogWarning, Debug.LogError, Debug.LogError);
             
             if (!makeBuildFullscreen)
             {
