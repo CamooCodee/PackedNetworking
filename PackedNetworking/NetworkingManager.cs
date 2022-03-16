@@ -19,7 +19,7 @@ namespace PackedNetworking
         
         [Header("Automatic Packet Finder:")]
         [SerializeField, Tooltip("Whether or not all packet classes should be found and added automatically.")]
-        private bool active;
+        private bool active = true;
         [SerializeField, Tooltip("This will print every packet class that was found.")]
         private bool printPacketClasses;
 

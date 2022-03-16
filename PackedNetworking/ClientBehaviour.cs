@@ -296,7 +296,6 @@ namespace PackedNetworking.Client
                 try
                 {
                     packet.InsertInt(_target.ClientId);
-                    NetworkingLogs.LogInfo("Sending UDP Packet. Inserted: " + _target.ClientId);
                     _socket?.BeginSend(packet.ToArray(), packet.Length(), null, null);
                 }
                 catch (Exception e)
