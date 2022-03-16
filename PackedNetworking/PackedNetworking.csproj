@@ -53,6 +53,7 @@
         <Compile Include="INetworkBehaviour.cs" />
         <Compile Include="IServerSendable.cs" />
         <Compile Include="NetworkBehaviour.cs" />
+        <Compile Include="NetworkingLogs.cs" />
         <Compile Include="NetworkingManager.cs" />
         <Compile Include="NetworkSettings.cs" />
         <Compile Include="Packet.cs" />

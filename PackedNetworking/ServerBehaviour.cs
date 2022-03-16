@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using PackedNetworking.Packets;
 using PackedNetworking.Threading;
+using PackedNetworking.Util;
 using UnityEngine;
 using static PackedNetworking.INetworkBehaviour;
 using static PackedNetworking.NetworkBehaviour;
@@ -34,10 +35,10 @@ namespace PackedNetworking.Server
         {
             if (_isRunning)
             {
-                Debug.LogWarning("Cannot start the server twice!");
+                NetworkingLogs.LogWarning("Cannot start the server twice!");
                 return;
             }
-            Debug.Log("STARTING SERVER");
+            NetworkingLogs.LogInfo("STARTING SERVER");
             
             _tcpListener = new TcpListener(IPAddress.Any, NetworkSettings.Port);
             _tcpListener.Start();
@@ -46,7 +47,7 @@ namespace PackedNetworking.Server
             _udpListener = new UdpClient(NetworkSettings.Port);
             BeginReadUdp();
             
-            Debug.Log("SERVER IS WAITING FOR CONNECTIONS");
+            NetworkingLogs.LogInfo("SERVER IS WAITING FOR CONNECTIONS");
             _isRunning = true;
         }
 
@@ -54,7 +55,7 @@ namespace PackedNetworking.Server
         {
             if (!(packet is IServerSendable serverPacket))
             {
-                Debug.LogError($"Trying to send a packet from the server which is not a server packet. Packet: {packet.GetType().Name}");
+                NetworkingLogs.LogError($"Trying to send a packet from the server which is not a server packet. Packet: {packet.GetType().Name}");
                 return;
             }
 
@@ -80,7 +81,7 @@ namespace PackedNetworking.Server
         {
             if (!(packet is IServerSendable serverPacket))
             {
-                Debug.LogError($"Trying to send a packet from the server which is not a server packet. Packet: {packet.GetType().Name}");
+                NetworkingLogs.LogError($"Trying to send a packet from the server which is not a server packet. Packet: {packet.GetType().Name}");
                 return;
             }
 
@@ -118,7 +119,7 @@ namespace PackedNetworking.Server
             var client = GetNextUnusedClient();
             if (client == null)
             {
-                Debug.LogWarning("REJECTING CONNECTION: SERVER SEEMS TO BE FULL!");
+                NetworkingLogs.LogWarning("REJECTING CONNECTION: SERVER SEEMS TO BE FULL!");
                 StartListeningForNewTcpClient();
                 return;
             }
@@ -131,7 +132,7 @@ namespace PackedNetworking.Server
 
         void StartListeningForNewTcpClient()
         {
-            if (_tcpListener == null) Debug.LogError("Cannot start listening, server has to be started first.");
+            if (_tcpListener == null) NetworkingLogs.LogFatal("Cannot start listening for new tcp clients, server has to be started first.");
             else _tcpListener.BeginAcceptTcpClient(OnClientConnect, null);
         }
 
@@ -167,7 +168,7 @@ namespace PackedNetworking.Server
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error receiving UDP data: {e}");
+                NetworkingLogs.LogError($"Failed to receive Udp data: {e}");
             }
         }
 
@@ -180,7 +181,7 @@ namespace PackedNetworking.Server
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error sending data via Udp: {e}");
+                NetworkingLogs.LogError($"Failed to send data via Udp: {e}");
             }
         }
         
@@ -196,7 +197,6 @@ namespace PackedNetworking.Server
                     return _clients[i];
             }
             
-            Debug.LogWarning("SERVER IS FULL");
             return null;
         }
         
@@ -327,7 +327,7 @@ namespace PackedNetworking.Server
                     _receivedData = new Packet();
                     _receiveBuffer = new byte[NetworkSettings.DataBufferSize];
 
-                    Debug.Log($"Connected new client! {GetClientSlotAmount()} more clients can join.");
+                    NetworkingLogs.LogInfo($"Connected new client! {GetClientSlotAmount()} more clients can join.");
                     
                     BeginRead();
                 }
@@ -416,13 +416,12 @@ namespace PackedNetworking.Server
                     
                     try
                     {
-                        Debug.Log("Sending Data");
                         _stream.BeginWrite(data.ToArray(), 0, data.Length(),
                             null, null);
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError($"Error sending data to player {_target.id} via TCP:\n{e}");
+                        NetworkingLogs.LogError($"Failed to send data to player {_target.id} via Tcp:\n{e}");
                         throw;
                     }
                 }
@@ -514,7 +513,7 @@ namespace PackedNetworking.Server
             
             private void Disconnect()
             {
-                Debug.Log($"Disconnecting client with id '{id}'.");
+                NetworkingLogs.LogInfo($"Disconnecting client with id '{id}'.");
                 _tcp.Disconnect();
                 udp.Disconnect();
                 _target.InvokeOnOnClientDisconnect(id);
@@ -527,7 +526,7 @@ namespace PackedNetworking.Server
             
             if (!TryBuildPacketBy(packet, packetId, out var finalPacket))
             {
-                Debug.LogError($"Failed to build a packet with the id '{packetId}'. Make sure it's added to the supported packets if this is the only exception.");
+                NetworkingLogs.LogError($"Failed to build a packet with the id '{packetId}'. If this is the only error in the console, then it's not added to the supported packet list. Otherwise this error might be FATAL");
                 return;
             }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PackedNetworking.Util;
+using UnityEngine;
 
 namespace PackedNetworking.Packets
 {
@@ -14,7 +15,7 @@ namespace PackedNetworking.Packets
         {
             if (targetClient < 0)
             {
-                Debug.LogError($"The target client can't be a negative value: '{targetClient}'");
+                NetworkingLogs.LogError($"The target client can't be a negative value: '{targetClient}'");
                 targetClient = 0;
             }
             this._targetClient = targetClient;
@@ -31,7 +32,7 @@ namespace PackedNetworking.Packets
         {
             if (_isTargetingAllClients && overwrittenTargetClient < 0)
             {
-                Debug.LogError($"Can't build '{GetType().Name}' packet. The target client has to be overwritten or set in the packet.");
+                NetworkingLogs.LogFatal($"Can't build '{GetType().Name}' packet. The target client has to be overwritten or set in the packet.");
                 return;
             }
 

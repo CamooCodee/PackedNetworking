@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PackedNetworking.Packets;
+using PackedNetworking.Util;
 using UnityEngine;
 using static PackedNetworking.INetworkBehaviour;
 using static PackedNetworking.PacketValidator.Server;
@@ -13,7 +14,7 @@ namespace PackedNetworking.Server
         
         protected override void Awake()
         {
-            if (!isServerBuild)
+            if (!IsServerBuild)
             {
                 Destroy(this);
                 return;
@@ -32,7 +33,7 @@ namespace PackedNetworking.Server
             var type = typeof(PacketType);
             if (!send.IsValid(type))
             {
-                Debug.LogError($"You can only send {send.GetValidTypesAsString()} packets from a {nameof(ServerNetworkBehaviour)}!");
+                NetworkingLogs.LogError($"You can only send {send.GetValidTypesAsString()} packets from a {nameof(ServerNetworkBehaviour)}!");
                 return;
             }
             base.SendTcpPacket(packet);
@@ -42,7 +43,7 @@ namespace PackedNetworking.Server
             var type = typeof(PacketType);
             if (!send.IsValid(type))
             {
-                Debug.LogError($"You can only send {send.GetValidTypesAsString()} packets from a {nameof(ServerNetworkBehaviour)}!");
+                NetworkingLogs.LogError($"You can only send {send.GetValidTypesAsString()} packets from a {nameof(ServerNetworkBehaviour)}!");
                 return;
             }
             base.SendUdpPacket(packet);
@@ -53,7 +54,7 @@ namespace PackedNetworking.Server
             var type = typeof(PacketType);
             if (!receive.IsValid(type))
             {
-                Debug.LogError($"You can only listen for {send.GetValidTypesAsString()} packets on a {nameof(ServerNetworkBehaviour)}!");
+                NetworkingLogs.LogError($"You can only listen for {send.GetValidTypesAsString()} packets on a {nameof(ServerNetworkBehaviour)}!");
                 return;
             }
             if(handler == null) return;

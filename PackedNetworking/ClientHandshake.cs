@@ -1,5 +1,6 @@
 ﻿using PackedNetworking.Client;
 using PackedNetworking.Packets;
+using PackedNetworking.Util;
 using UnityEngine;
 
 namespace PackedNetworking
@@ -11,7 +12,7 @@ namespace PackedNetworking
         
         private void OnEnable()
         {
-            Debug.Log("Listening For Handshake!");
+            NetworkingLogs.LogInfo("Listening For Handshake!");
             ListenForPacket<HandshakePacket>(OnHandshakeReceived);
             ListenForPacket<UdpTest>(OnUdpTestReceived);
         }
@@ -19,7 +20,7 @@ namespace PackedNetworking
         void OnHandshakeReceived(Packet packet)
         {
             var handshake = (HandshakePacket) packet;
-            Debug.Log("Received Handshake: " + handshake.message);
+            NetworkingLogs.LogInfo("Received Handshake: " + handshake.message);
             ClientInstance.ClientId = handshake.clientId;
             SendTcpPacket(new HandshakeReceivedPacket(ClientId));
             ClientInstance.ConnectUdp();
@@ -30,7 +31,7 @@ namespace PackedNetworking
         void OnUdpTestReceived(Packet packet)
         {
             var udpTest = (UdpTest) packet;
-            Debug.Log("Received Udp Test: " + udpTest.message);
+            NetworkingLogs.LogInfo("Received Udp Test: " + udpTest.message);
             SendUdpPacket(new UdpTestReceived(ClientId));
             _udpTestCompleted = true;
             if(_handshakeCompleted) Destroy(this);

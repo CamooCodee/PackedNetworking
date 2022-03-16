@@ -1,4 +1,5 @@
 ﻿using PackedNetworking.Client;
+using PackedNetworking.Util;
 using UnityEngine;
 
 namespace PackedNetworking.Packets
@@ -9,8 +10,19 @@ namespace PackedNetworking.Packets
         /// Either the targeted client or the sending client.
         /// </summary>
         private readonly int _actingClient;
-        private readonly bool _isTargetingAllClients;
 
+        public bool IsTargetingAllClients { get; }
+        int IServerSendable.TargetClient => _actingClient;
+        public int ActingClient
+        {
+            get
+            {
+                if(!NetworkBehaviour.IsServerBuild)
+                    NetworkingLogs.LogWarning($"The '{nameof(ClientServerPacket)}.{nameof(ActingClient)}' property is always 0 on the client side. Use the ClientId of the {nameof(ClientNetworkBehaviour)} class instead!");
+                return _actingClient;
+            }
+        }
+        
         /// <summary>
         /// This will make the packet usable as a server or client packet.
         /// </summary>
@@ -18,11 +30,11 @@ namespace PackedNetworking.Packets
         {
             if (actingClient < 0)
             {
-                Debug.LogError($"The target client can't be a negative value: '{actingClient}'");
+                NetworkingLogs.LogError($"The target client can't be a negative value: '{actingClient}'");
                 actingClient = 0;
             }
             this._actingClient = actingClient;
-            _isTargetingAllClients = false;
+            IsTargetingAllClients = false;
         }
 
         /// <summary>
@@ -30,25 +42,25 @@ namespace PackedNetworking.Packets
         /// </summary>
         public ClientServerPacket(int packetId) : base(packetId)
         {
-            _isTargetingAllClients = true;
+            IsTargetingAllClients = true;
             _actingClient = -1;
         }
         
         public ClientServerPacket(int packetId, Packet packet) : base(packetId)
         {
-            if(NetworkBehaviour.isServerBuild) _actingClient = packet.ReadInt();
+            if(NetworkBehaviour.IsServerBuild) _actingClient = packet.ReadInt();
         }
         
         public override void Build(int overwrittenTargetClient = -1)
         {
-            if (_isTargetingAllClients && overwrittenTargetClient < 0)
+            if (IsTargetingAllClients && overwrittenTargetClient < 0)
             {
-                Debug.LogError($"Can't build '{GetType().Name}' packet. The target client has to be overwritten or set in the packet.");
+                NetworkingLogs.LogError($"Can't build '{GetType().Name}' packet. The target client has to be overwritten or set in the packet.");
                 return;
             }
 
             int acting = _actingClient;
-            if (_isTargetingAllClients) acting = overwrittenTargetClient;
+            if (IsTargetingAllClients) acting = overwrittenTargetClient;
             
             InsertInt(acting);
             InsertInt(PacketId);
@@ -60,18 +72,6 @@ namespace PackedNetworking.Packets
             RemoveLeadingInt();
             RemoveLeadingInt();
             base.UndoBuild();
-        }
-
-        public bool IsTargetingAllClients => _isTargetingAllClients;
-        int IServerSendable.TargetClient => _actingClient;
-        public int actingClient
-        {
-            get
-            {
-                if(!NetworkBehaviour.isServerBuild)
-                    Debug.LogWarning($"The {nameof(actingClient)} property is always 0 on the client side. Use the ClientId of the {nameof(ClientNetworkBehaviour)} class instead!");
-                return _actingClient;
-            }
         }
     }
 }

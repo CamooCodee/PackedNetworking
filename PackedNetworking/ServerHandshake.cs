@@ -1,5 +1,6 @@
 ﻿using PackedNetworking.Packets;
 using PackedNetworking.Server;
+using PackedNetworking.Util;
 using UnityEngine;
 
 namespace PackedNetworking
@@ -20,7 +21,7 @@ namespace PackedNetworking
 
         void SendHandshake(int clientId)
         {
-            Debug.Log($"Sending Handshake to {clientId}");
+            NetworkingLogs.LogInfo($"Sending Handshake to {clientId}");
             var packet = new HandshakePacket($"Handshake Message. Your client ID: {clientId}", clientId);
             SendTcpPacket(packet);
         }
@@ -28,14 +29,14 @@ namespace PackedNetworking
         void OnCompletedHandshake(Packet packet)
         {
             var handshake = (HandshakeReceivedPacket)packet;
-            Debug.Log($"Successfully connected to a new client! Id: {handshake.sendingClient}");
+            NetworkingLogs.LogInfo($"Successfully connected to a new client! Id: {handshake.sendingClient}");
             ServerInstance.CompletedClientHandshake(handshake.sendingClient);
         }
         
         void OnCompletedUdpTest(Packet packet)
         {
             var udpTest = (UdpTestReceived)packet;
-            Debug.Log($"Successfully connected new client via udp! Id: {udpTest.sendingClient}");
+            NetworkingLogs.LogInfo($"Successfully connected new client via udp! Id: {udpTest.sendingClient}");
             ServerInstance.CompletedClientUdpTest(udpTest.sendingClient);
         }
     }

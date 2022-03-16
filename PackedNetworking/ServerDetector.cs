@@ -12,7 +12,7 @@ namespace PackedNetworking
 
         private void Start()
         {
-            if(isServerBuild)
+            if(IsServerBuild)
                 SceneManager.LoadScene(_serverScene);
             Destroy(this);
         }
@@ -20,7 +20,7 @@ namespace PackedNetworking
         public void SetValues(bool force, string serverSceneName)
         {
             _serverScene = serverSceneName;
-            isServerBuild = isBatchMode || force;
+            IsServerBuild = isBatchMode || force;
         }
     }
 }

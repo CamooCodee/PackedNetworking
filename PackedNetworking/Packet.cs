@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using PackedNetworking.Util;
 using UnityEngine;
 
 namespace PackedNetworking.Packets
@@ -22,7 +23,7 @@ namespace PackedNetworking.Packets
             {
                 if (value < 0)
                 {
-                    Debug.LogWarning($"A packet id cannot be '{value}'. Ensure it's positive.");
+                    NetworkingLogs.LogWarning($"A packet id cannot be '{value}'. Ensure it's positive. Not changing value.");
                     return;
                 }
                 _packetId = value;
@@ -96,7 +97,7 @@ namespace PackedNetworking.Packets
             if(_buffer.Count > 4)
                 _buffer.RemoveRange(0, 4);
             else
-                Debug.LogError("There was no leading int to remove.");
+                NetworkingLogs.LogError("There was no leading int to remove.");
         }
 
         /// <summary>Gets the packet's content in array form.</summary>

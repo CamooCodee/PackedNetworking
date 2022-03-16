@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using PackedNetworking.Util;
 using UnityEngine;
 
 namespace PackedNetworking
@@ -35,7 +36,7 @@ namespace PackedNetworking
             {
                 var isValidId = IPAddress.TryParse(value, out _);
                 if (!isValidId)
-                    Debug.LogError("Trying to set invalid server Ip. Value not changing");
+                    NetworkingLogs.LogWarning("Trying to set invalid server Ip. Value not changing.");
                 else
                     serverIp = value;
             }

@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using PackedNetworking.Packets;
 using PackedNetworking.Threading;
+using PackedNetworking.Util;
 using UnityEngine;
 using static PackedNetworking.INetworkBehaviour;
 using static PackedNetworking.NetworkBehaviour;
@@ -22,7 +23,7 @@ namespace PackedNetworking.Client
             get
             {
                 if(_clientId < 0)
-                    throw new Exception("The client id of this client hasn't been defined. Yet you are still trying to access it.");
+                    NetworkingLogs.LogError("The client id of this client hasn't been defined. Yet you are still trying to access it.");
 
                 return _clientId;
             }
@@ -30,12 +31,12 @@ namespace PackedNetworking.Client
             {
                 if (_clientId > 0)
                 {
-                    Debug.LogWarning("The client id cannot be changed. Skipped this call.");
+                    NetworkingLogs.LogWarning("The client id cannot be changed. Skipped this call.");
                     return;
                 }
                 if (value <= 0)
                 {
-                    Debug.LogError($"Trying to assign '{value}' as the client id. Client ids can only be positive! Skipped this call.");   
+                    NetworkingLogs.LogFatal($"Trying to assign '{value}' as the client id. Client ids can only be positive! Skipped this call.");   
                     return;
                 }
 
@@ -52,7 +53,7 @@ namespace PackedNetworking.Client
             IsConnected = false;
             _tcp.DisconnectSocket();
             _upd.DisconnectSocket();
-            Debug.Log("Disconnected from server!");
+            NetworkingLogs.LogInfo("Disconnected from server!");
         }
 
         public void Setup()
@@ -97,22 +98,20 @@ namespace PackedNetworking.Client
             bool isLookingForPacket = isProperHandshake || targetClient == ClientId || targetClient < 0;
             
             if(!isLookingForPacket)
-                throw new Exception("FATAL: Received a packet which wasn't aimed for this client.");
+                NetworkingLogs.LogFatal("Received a packet which wasn't aimed for this client!");
 
             _isHandshake = false;
             
             if (!TryBuildPacketBy(packet, packetId, out var finalPacket))
             {
-                Debug.LogError($"Failed to build a packet with the id '{packetId}'. Make sure it's added to the supported packets if this is the only exception.");
+                NetworkingLogs.LogError($"Failed to build a packet with the id '{packetId}'. If this is the only error in the console, then it's not added to the supported packet list. Otherwise this error might be FATAL");
                 return;
             }
 
             finalPacket.PacketId = packetId;
             
-            foreach (var handler in _packetHandlers)
-            {
+            foreach (var handler in _packetHandlers) 
                 handler.Invoke(finalPacket);
-            }
         }
         
         private class Tcp
@@ -262,7 +261,7 @@ namespace PackedNetworking.Client
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"Error sending data to the server via TCP: {e}");
+                    NetworkingLogs.LogError($"Error sending data to the server via TCP: {e}");
                     throw;
                 }
             }
@@ -282,7 +281,7 @@ namespace PackedNetworking.Client
 
             public void Connect(int localPort)
             {
-                Debug.Log("Connecting Udp");
+                NetworkingLogs.LogInfo("Connecting Udp");
                 _socket = new UdpClient(localPort);
                     
                 _socket.Connect(_endPoint);
@@ -297,12 +296,12 @@ namespace PackedNetworking.Client
                 try
                 {
                     packet.InsertInt(_target.ClientId);
-                    Debug.Log("Sending UDP Packet. Inserted: " + _target.ClientId);
+                    NetworkingLogs.LogInfo("Sending UDP Packet. Inserted: " + _target.ClientId);
                     _socket?.BeginSend(packet.ToArray(), packet.Length(), null, null);
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"Error sending data via UDP: {e}");
+                    NetworkingLogs.LogError($"Error sending data via UDP: {e}");
                 }
             }
             

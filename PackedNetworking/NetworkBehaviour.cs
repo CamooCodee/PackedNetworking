@@ -5,13 +5,30 @@ using System.Reflection;
 using PackedNetworking.Client;
 using PackedNetworking.Packets;
 using PackedNetworking.Server;
+using PackedNetworking.Util;
 using UnityEngine;
 
 namespace PackedNetworking
 {
     public abstract class NetworkBehaviour : MonoBehaviour
     {
-        public static bool isServerBuild = false;
+        private static bool isServerBuildWasSet;
+        private static bool isServerBuild;
+        public static bool IsServerBuild
+        {
+            get => isServerBuild;
+            set
+            {
+                if (isServerBuildWasSet)
+                {
+                    NetworkingLogs.LogError($"The '{nameof(IsServerBuild)}' property can only be set once. Skipped this call.");
+                    return;
+                }
+                
+                isServerBuildWasSet = true;
+                isServerBuild = value;
+            }
+        }
         public static bool connectOnApplicationStart = false;
 
         protected static INetworkBehaviour behaviour;
@@ -52,11 +69,11 @@ namespace PackedNetworking
                                                                     c.GetParameters().First().ParameterType == typeof(Packet));
             
             if(constr == null)
-                Debug.LogError($"Cannot support packet type '{type.Name}'. Packet types have to contain a constructor with a default packet as the parameter!");
+                NetworkingLogs.LogError($"Cannot support packet type '{type.Name}'. Packet types have to contain a constructor with a default packet as the parameter!");
             else if (!packetConstructors.ContainsKey(id))
                 packetConstructors.Add(id, constr);
             else
-                Debug.LogWarning($"Already added a packet with id '{id}'.");
+                NetworkingLogs.LogWarning($"Already added a packet with id '{id}'. Not adding again.");
         }
 
         public static bool TryBuildPacketBy(Packet packet, int id, out Packet target)
@@ -67,7 +84,7 @@ namespace PackedNetworking
             }
             catch (Exception e)
             {
-                Debug.LogError($"Cannot build packet: {e}");
+                NetworkingLogs.LogError($"Failed to build packet with id: {id}: {e}");
                 target = default;
                 return false;
             }
@@ -77,22 +94,22 @@ namespace PackedNetworking
         
         protected virtual void Awake()
         {
-            if(!IsSetUp && (isServerBuild || connectOnApplicationStart))
+            if(!IsSetUp && (IsServerBuild || connectOnApplicationStart))
                 Setup();
         }
 
         public static void ConnectToServer()
         {
-            if (isServerBuild)
+            if (IsServerBuild)
             {
-                Debug.LogError($"You cannot call the '{nameof(ConnectToServer)}' method on the server!");
+                NetworkingLogs.LogError($"You cannot call the '{nameof(ConnectToServer)}' method on the server!");
                 return;
             }
             
             if(!IsSetUp)
                 Setup();
             else
-                Debug.LogError("It seems like you've already set the client up!");
+                NetworkingLogs.LogError("It seems like you've already set the client up! Cannot try to connect again.");
         }
         
         /// <summary>
@@ -100,7 +117,7 @@ namespace PackedNetworking
         /// </summary>
         private static void Setup()
         {
-            if(isServerBuild)
+            if(IsServerBuild)
                 behaviour = new ServerBehaviour(NetworkSettings.MaxPlayers);
             else
                 behaviour = new ClientBehaviour();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using PackedNetworking.Packets;
+using PackedNetworking.Util;
 using UnityEngine;
 
 namespace PackedNetworking
@@ -17,7 +18,7 @@ namespace PackedNetworking
             var myAssembly = Assembly.GetAssembly(typeof(Packet));
             if (myAssembly == null)
             {
-                Debug.LogError("Failed to auto-support packets: There was no assembly loaded with the Packet type.");
+                NetworkingLogs.LogFatal("Failed to auto-support packets: There was no assembly loaded with the Packet type.");
                 return;
             }
             
@@ -34,7 +35,7 @@ namespace PackedNetworking
                 var id = GetIdByPacketType(type);
                 if(id == -1) continue;
                 if(_logFoundPacketTypes)
-                    Debug.Log($"Automatically supported packet type {type.Name} with the id {id}.");
+                    NetworkingLogs.LogInfo($"Automatically supported packet type {type.Name} with the id {id}.");
                 NetworkBehaviour.AddSupportedPacketType(type, id);
             }
         }
@@ -54,7 +55,7 @@ namespace PackedNetworking
             var array = values as int[] ?? values.ToArray();
             
             if (!array.Any())
-                Debug.LogError(
+                NetworkingLogs.LogError(
                     $"Failed to support packet '{type.Name}'. A public constant for the ID is required.");
             else
                 return array[0];

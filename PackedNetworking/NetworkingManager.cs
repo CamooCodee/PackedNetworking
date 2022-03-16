@@ -29,6 +29,8 @@ namespace PackedNetworking
         
         private void Awake()
         {
+            NetworkingLogs.Set(null, null, Debug.LogError, Debug.LogError);
+            
             if (!makeBuildFullscreen)
             {
                 Screen.SetResolution((int) windowSize.x,
@@ -44,6 +46,11 @@ namespace PackedNetworking
             gameObject.AddComponent<GameLifetimeGameObject>();
             var detector = gameObject.AddComponent<ServerDetector>();
             detector.SetValues(forceServerBuild, serverSceneName);
+            if (NetworkBehaviour.IsServerBuild)
+                NetworkingLogs.Prefix = "[server] ";
+            else
+                NetworkingLogs.Prefix = "[client] ";
+            
             var autoSupport = gameObject.AddComponent<AutoPacketSupporter>();
             autoSupport.SetValues(active, printPacketClasses);
             gameObject.AddComponent<ClientHandshake>();
