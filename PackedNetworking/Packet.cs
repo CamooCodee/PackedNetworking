@@ -45,7 +45,7 @@ namespace PackedNetworking.Packets
 
         /// <summary>Creates a new packet with a given ID. Used for sending.</summary>
         /// <param name="id">The packet ID.</param>
-        public Packet(int id)
+        protected Packet(int id)
         {
             _buffer = new List<byte>(); // Initialize buffer
             _readPos = 0; // Set readPos to 0

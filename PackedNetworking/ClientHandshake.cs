@@ -1,12 +1,10 @@
 ﻿using PackedNetworking.Client;
-using PackedNetworking.Client.Packets;
 using PackedNetworking.Packets;
-using PackedNetworking.Server.Packets;
 using UnityEngine;
 
-namespace PackedNetworking.Handshake
+namespace PackedNetworking
 {
-    public class ClientHandshake : ClientNetworkBehaviour
+    internal class ClientHandshake : ClientNetworkBehaviour
     {
         private bool _handshakeCompleted;
         private bool _udpTestCompleted;

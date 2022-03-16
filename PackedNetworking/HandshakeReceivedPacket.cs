@@ -1,6 +1,4 @@
-﻿using PackedNetworking.Packets;
-
-namespace PackedNetworking.Client.Packets
+﻿namespace PackedNetworking.Packets
 {
     public class HandshakeReceivedPacket : ClientPacket
     {

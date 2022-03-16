@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PackedNetworking.Threading
 {
-    public class ThreadManager : MonoBehaviour
+    internal class ThreadManager : MonoBehaviour
     {
         private static readonly List<Action> executeOnNextUpdate = new List<Action>();
         private static readonly List<Action> executeOnMainThread = new List<Action>();

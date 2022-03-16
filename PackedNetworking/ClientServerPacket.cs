@@ -1,8 +1,7 @@
 ﻿using PackedNetworking.Client;
-using PackedNetworking.Packets;
 using UnityEngine;
 
-namespace PackedNetworking
+namespace PackedNetworking.Packets
 {
     public abstract class ClientServerPacket : Packet, IServerSendable
     {
@@ -63,8 +62,8 @@ namespace PackedNetworking
             base.UndoBuild();
         }
 
-        public bool isTargetingAllClients => _isTargetingAllClients;
-        int IServerSendable.targetClient => _actingClient;
+        public bool IsTargetingAllClients => _isTargetingAllClients;
+        int IServerSendable.TargetClient => _actingClient;
         public int actingClient
         {
             get

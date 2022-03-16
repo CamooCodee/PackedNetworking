@@ -1,6 +1,5 @@
-﻿using PackedNetworking.General;
-using PackedNetworking.Handshake;
-using PackedNetworking.Threading;
+﻿using PackedNetworking.Threading;
+using PackedNetworking.Util;
 using UnityEngine;
 
 namespace PackedNetworking

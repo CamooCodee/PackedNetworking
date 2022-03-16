@@ -1,7 +1,6 @@
-﻿using PackedNetworking.Packets;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace PackedNetworking.Server.Packets
+namespace PackedNetworking.Packets
 {
     /// <summary>
     /// Send from server to client.
@@ -51,8 +50,8 @@ namespace PackedNetworking.Server.Packets
             RemoveLeadingInt();
         }
 
-        public bool isTargetingAllClients => _isTargetingAllClients;
-        int IServerSendable.targetClient => _targetClient;
+        public bool IsTargetingAllClients => _isTargetingAllClients;
+        int IServerSendable.TargetClient => _targetClient;
         public int targetClient => _targetClient;
     }
 }

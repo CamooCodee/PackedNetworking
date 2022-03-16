@@ -1,6 +1,5 @@
-﻿using PackedNetworking.Packets;
-
-namespace PackedNetworking.Server.Packets
+﻿
+namespace PackedNetworking.Packets
 {
     public class HandshakePacket : ServerPacket
     {

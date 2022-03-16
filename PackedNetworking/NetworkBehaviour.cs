@@ -16,7 +16,7 @@ namespace PackedNetworking
 
         protected static INetworkBehaviour behaviour;
 
-        protected static ServerBehaviour ServerInstance
+        internal static ServerBehaviour ServerInstance
         {
             get
             {

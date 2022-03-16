@@ -87,8 +87,8 @@ namespace PackedNetworking.Client
         }
         
         private bool _isHandshake = true;
-        
-        public void InvokePacketHandlers(Packet packet)
+
+        private void InvokePacketHandlers(Packet packet)
         {
             var packetId = packet.ReadInt();
             var targetClient = packet.ReadInt();
@@ -227,20 +227,17 @@ namespace PackedNetworking.Client
                     var packetBytes = _receivedData.ReadBytes(packetLength);
                     ThreadManager.ExecuteOnMainThread(() =>
                     {
-                        using (var packet = new Packet(packetBytes))
-                        {
-                            _target.InvokePacketHandlers(packet);
-                        }
+                        using (var packet = new Packet(packetBytes)) _target.InvokePacketHandlers(packet);
                     });
 
                     packetLength = 0;
-                    if (_receivedData.UnreadLength() >= 4)
+                    
+                    if (_receivedData.UnreadLength() < 4) continue;
+                    
+                    packetLength = _receivedData.ReadInt();
+                    if (packetLength <= 0)
                     {
-                        packetLength = _receivedData.ReadInt();
-                        if (packetLength <= 0)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
 
@@ -341,10 +338,8 @@ namespace PackedNetworking.Client
                 
                 ThreadManager.ExecuteOnMainThread(() =>
                 {
-                    using (var packet = new Packet(data))
-                    {
+                    using (var packet = new Packet(data)) 
                         _target.InvokePacketHandlers(packet);
-                    }
                 });
             }
 

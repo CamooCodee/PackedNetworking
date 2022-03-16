@@ -10,7 +10,7 @@ using static PackedNetworking.NetworkBehaviour;
 
 namespace PackedNetworking.Server
 {
-    public class ServerBehaviour : INetworkBehaviour
+    internal class ServerBehaviour : INetworkBehaviour
     {
         private bool _isRunning;
         private readonly int _maxPlayers;
@@ -60,10 +60,10 @@ namespace PackedNetworking.Server
 
             foreach (var client in _clients.Values)
             {
-                if (!serverPacket.isTargetingAllClients && client.id != serverPacket.targetClient) continue;
+                if (!serverPacket.IsTargetingAllClients && client.id != serverPacket.TargetClient) continue;
                 if(!client.IsUsed) continue;
                 
-                if (serverPacket.isTargetingAllClients)
+                if (serverPacket.IsTargetingAllClients)
                 {
                     client.SendTcpData(packet, client.id);
                     packet.UndoBuild();
@@ -86,10 +86,10 @@ namespace PackedNetworking.Server
 
             foreach (var client in _clients.Values)
             {
-                if (!serverPacket.isTargetingAllClients && client.id != serverPacket.targetClient) continue;
+                if (!serverPacket.IsTargetingAllClients && client.id != serverPacket.TargetClient) continue;
                 if(!client.IsUsed) continue;
                 
-                if (serverPacket.isTargetingAllClients)
+                if (serverPacket.IsTargetingAllClients)
                 {
                     client.SendUdpData(packet, client.id);
                     packet.UndoBuild();

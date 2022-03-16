@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PackedNetworking.General
+namespace PackedNetworking.Util
 {
     public class GameLifetimeGameObject : MonoBehaviour
     {

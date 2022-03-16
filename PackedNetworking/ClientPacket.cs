@@ -1,6 +1,4 @@
-﻿using PackedNetworking.Packets;
-
-namespace PackedNetworking.Client.Packets
+﻿namespace PackedNetworking.Packets
 {
     /// <summary>
     /// Send from client to server.

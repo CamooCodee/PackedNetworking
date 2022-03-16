@@ -1,8 +1,8 @@
-﻿namespace PackedNetworking
+﻿namespace PackedNetworking.Packets
 {
     internal interface IServerSendable
     {
-        public bool isTargetingAllClients { get; }
-        internal int targetClient { get; }
+        public bool IsTargetingAllClients { get; }
+        internal int TargetClient { get; }
     }
 }

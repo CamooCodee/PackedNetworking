@@ -1,12 +1,10 @@
-﻿using PackedNetworking.Client.Packets;
-using PackedNetworking.Packets;
+﻿using PackedNetworking.Packets;
 using PackedNetworking.Server;
-using PackedNetworking.Server.Packets;
 using UnityEngine;
 
-namespace PackedNetworking.Handshake
+namespace PackedNetworking
 {
-    public class ServerHandshake : ServerNetworkBehaviour
+    internal class ServerHandshake : ServerNetworkBehaviour
     {
         private void OnEnable()
         {

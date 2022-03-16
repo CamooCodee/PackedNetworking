@@ -1,7 +1,4 @@
-﻿using PackedNetworking.Client.Packets;
-using PackedNetworking.Packets;
-
-namespace PackedNetworking
+﻿namespace PackedNetworking.Packets
 {
     public class UdpTestReceived : ClientPacket
     {

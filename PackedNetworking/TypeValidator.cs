@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 
-namespace PackedNetworking
+namespace PackedNetworking.Util
 {
-    public class TypeValidator
+    internal class TypeValidator
     {
         private readonly Type[] _validTypes;
 

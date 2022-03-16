@@ -33,7 +33,7 @@ namespace PackedNetworking
             get => serverIp;
             set
             {
-                var isValidId = IPAddress.TryParse(value, out var ip);
+                var isValidId = IPAddress.TryParse(value, out _);
                 if (!isValidId)
                     Debug.LogError("Trying to set invalid server Ip. Value not changing");
                 else

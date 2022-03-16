@@ -1,5 +1,5 @@
-﻿using PackedNetworking.Client.Packets;
-using PackedNetworking.Server.Packets;
+﻿using PackedNetworking.Packets;
+using PackedNetworking.Util;
 
 namespace PackedNetworking
 {
@@ -7,19 +7,19 @@ namespace PackedNetworking
     {
         public static class Client
         {
-            public static readonly TypeValidator send =
+            internal static readonly TypeValidator send =
                 new TypeValidator(typeof(ClientPacket), typeof(ClientServerPacket));
             
-            public static readonly TypeValidator receive =
+            internal static readonly TypeValidator receive =
                 new TypeValidator(typeof(ServerPacket), typeof(ClientServerPacket));
         }
         
         public static class Server
         {
-            public static readonly TypeValidator send =
+            internal static readonly TypeValidator send =
                 new TypeValidator(typeof(ServerPacket), typeof(ClientServerPacket));
             
-            public static readonly TypeValidator receive =
+            internal static readonly TypeValidator receive =
                 new TypeValidator(typeof(ClientPacket), typeof(ClientServerPacket));
         }
     }
