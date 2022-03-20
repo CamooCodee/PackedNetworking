@@ -222,18 +222,7 @@ Again, build and boot up the server. Ensure server and client are connected succ
 All the possible constuctors for a `ClientServerPacket` are these:
 ```
 public MessagePacket(int actingClient) : base(ID, actingClient) { }
-public MessagePacket(string message, int sendingClient) : base(ID)
-{
-    this.message = message;
-    this.sendingClient = sendingClient;
-
-    Write(message);
-    Write(sendingClient);
-}
-
-public MessagePacket(Packet packet) : base(ID, packet)
-{
-    message = packet.ReadString();
-    sendingClient = packet.ReadInt();
-}
+public MessagePacket() : base(ID) { }
+public MessagePacket(Packet packet) : base(ID, packet) { }
 ```
+The first one can be used by server and client. On the client side `actingClient` has to be the clients `client id`. On the server, it provides the `client id` of the targeted client. The second constructor is optional and can only be used on the server side. It's used when the packed is supposed to target every client. Finally, the last constructor works the same way as every other constructor taking a `Packet`. It has to read all the values from the passed packet.
