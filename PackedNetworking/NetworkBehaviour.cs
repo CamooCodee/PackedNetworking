@@ -39,7 +39,8 @@ namespace PackedNetworking
             {
                 if (behaviour is ServerBehaviour sb) return sb;
                 
-                throw new Exception("FATAL: Trying to access the server instance on a client.");
+                NetworkingLogs.LogFatal("FATAL: Trying to access the server instance on a client.");
+                return null;
             }
         }
         protected static ClientBehaviour ClientInstance
@@ -48,7 +49,8 @@ namespace PackedNetworking
             {
                 if (behaviour is ClientBehaviour cb) return cb;
                 
-                throw new Exception("FATAL: Trying to access the server instance on a client.");
+                NetworkingLogs.LogFatal("FATAL: Trying to access the client instance on the server.");
+                return null;
             }
         }
 
@@ -94,8 +96,7 @@ namespace PackedNetworking
         
         protected virtual void Awake()
         {
-            if(!IsSetUp && (IsServerBuild || connectOnApplicationStart))
-                Setup();
+            Setup(true);
         }
 
         public static void ConnectToServer()
@@ -106,23 +107,25 @@ namespace PackedNetworking
                 return;
             }
             
-            if(!IsSetUp)
-                Setup();
-            else
-                NetworkingLogs.LogError("It seems like you've already set the client up! Cannot try to connect again.");
+            Setup(false);
         }
         
         /// <summary>
         /// Setup call only called when the behaviour is instantiated.
         /// </summary>
-        private static void Setup()
+        private static void Setup(bool isApplicationStart)
         {
-            if(IsServerBuild)
-                behaviour = new ServerBehaviour(NetworkSettings.MaxPlayers);
-            else
-                behaviour = new ClientBehaviour();
+            if(!IsSetUp)
+            {
+                if(IsServerBuild)
+                    behaviour = new ServerBehaviour(NetworkSettings.MaxPlayers);
+                else
+                    behaviour = new ClientBehaviour();
+            }
+            else if(behaviour.IsSetup) return;
 
-            behaviour.Setup();
+            if(IsServerBuild || connectOnApplicationStart || !isApplicationStart)
+                behaviour.Setup();
         }
         
         protected void SendTcpPacket<PacketType>(PacketType packet) where PacketType : Packet

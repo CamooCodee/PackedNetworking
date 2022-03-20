@@ -30,7 +30,9 @@ namespace PackedNetworking.Server
             for (int i = 1; i <= _maxPlayers; i++) 
                 _clients.Add(i, new Client(i, this));
         }
-        
+
+        public bool IsSetup => _isRunning;
+
         public void Setup()
         {
             if (_isRunning)
@@ -422,7 +424,6 @@ namespace PackedNetworking.Server
                     catch (Exception e)
                     {
                         NetworkingLogs.LogError($"Failed to send data to player {_target.id} via Tcp:\n{e}");
-                        throw;
                     }
                 }
 

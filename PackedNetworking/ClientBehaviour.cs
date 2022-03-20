@@ -56,6 +56,8 @@ namespace PackedNetworking.Client
             NetworkingLogs.LogInfo("Disconnected from server!");
         }
 
+        public bool IsSetup => IsConnected;
+
         public void Setup()
         {
             _tcp = new Tcp(this);
@@ -180,6 +182,8 @@ namespace PackedNetworking.Client
 
                 _receivedData = new Packet();
                 
+                NetworkingLogs.LogInfo("Starting to listen for data.");
+                
                 BeginRead();
             }
 
@@ -262,7 +266,6 @@ namespace PackedNetworking.Client
                 catch (Exception e)
                 {
                     NetworkingLogs.LogError($"Error sending data to the server via TCP: {e}");
-                    throw;
                 }
             }
         }
@@ -322,7 +325,6 @@ namespace PackedNetworking.Client
                 catch (Exception)
                 {
                     Disconnect();
-                    throw;
                 }
             }
 

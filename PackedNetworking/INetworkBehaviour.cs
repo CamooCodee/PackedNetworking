@@ -4,6 +4,7 @@ namespace PackedNetworking
 {
     public interface INetworkBehaviour
     {
+        public bool IsSetup { get; }
         public delegate void PacketHandler(Packet packet);
         public void Setup();
         public void SendTcpPacket(Packet packet);

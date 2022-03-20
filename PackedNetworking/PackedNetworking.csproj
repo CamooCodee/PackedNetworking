@@ -80,5 +80,6 @@
     -->
     <Target Name="AfterBuild">
         <Copy SourceFiles="$(OutputPath)\PackedNetworking.dll" DestinationFolder="X:\UnityProjekte\PackedNetworkingTesting\Assets\Lib" ContinueOnError="true" />
+        <Copy SourceFiles="$(OutputPath)\PackedNetworking.dll" DestinationFolder="X:\UnityProjekte\PackedNetworkingCleanTest\Assets\Plugins" ContinueOnError="true" />
     </Target>
 </Project>

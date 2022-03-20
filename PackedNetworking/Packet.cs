@@ -15,7 +15,7 @@ namespace PackedNetworking.Packets
             get
             {
                 if (_packetId < 0)
-                    throw new Exception("FATAL: Trying to receive packet id when it's not defined.\nTry using a different constructor.");
+                    NetworkingLogs.LogFatal("FATAL: Trying to receive packet id when it's not defined.\nTry using a different constructor.");
                 
                 return _packetId;
             }

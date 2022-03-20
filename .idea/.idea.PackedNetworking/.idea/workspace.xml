@@ -19,7 +19,12 @@
     <list default="true" id="cb228b70-7236-4edf-afb2-0a430c5094cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/INetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/INetworkBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkBehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/PackedNetworking.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/PackedNetworking.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/Packet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/Packet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerBehaviour.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +43,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../UnityProjekte/PackedNetworkingCleanTest/Assets/ExampleServerPacket.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29A6C194-5F57-4474-95FC-AD42118554C7/2d/ecbadd1e/UdpClient.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -164,7 +170,8 @@
       <workItem from="1647163504431" duration="365000" />
       <workItem from="1647166720509" duration="1240000" />
       <workItem from="1647421412892" duration="4519000" />
-      <workItem from="1647445481970" duration="2865000" />
+      <workItem from="1647445481970" duration="5149000" />
+      <workItem from="1647502667271" duration="3811000" />
     </task>
     <servers />
   </component>
