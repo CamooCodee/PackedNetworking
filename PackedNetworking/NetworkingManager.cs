@@ -16,6 +16,7 @@ namespace PackedNetworking
         [Header("Server Detection:")]
         [SerializeField] private bool forceServerBuild;
         [SerializeField] private string serverSceneName;
+        [SerializeField] private string clientSceneName;
         
         [Header("Automatic Packet Finder:")]
         [SerializeField, Tooltip("RECOMMENDED!!! Whether or not all packet classes should be found and added automatically.")]
@@ -23,29 +24,28 @@ namespace PackedNetworking
         [SerializeField, Tooltip("This will print every packet class that was found.")]
         private bool printPacketClasses;
 
-        [Header("Useful:")]
-        [SerializeField] private bool makeBuildFullscreen = true;
-        [SerializeField] private Vector2 windowSize = new Vector2(1920, 1080);
-        
         private void Awake()
         {
-            NetworkingLogs.Set(Debug.Log, Debug.LogWarning, Debug.LogError, Debug.LogError);
-            
-            if (!makeBuildFullscreen)
-            {
-                Screen.SetResolution((int) windowSize.x,
-                    (int) windowSize.y,
-                    FullScreenMode.Windowed);
-            }
-
             NetworkBehaviour.connectOnApplicationStart = connectOnApplicationStart;
+            NetworkBehaviour.IsServerBuild = Application.isBatchMode || forceServerBuild;
+
+            if(!connectOnApplicationStart)
+                return;
+            
+            Setup();
+        }
+
+        internal void Setup()
+        {
             NetworkSettings.Port = port;
             NetworkSettings.ServerIp = serverIp;
             NetworkSettings.MaxPlayers = maxClients;
             
             gameObject.AddComponent<GameLifetimeGameObject>();
+            
             var detector = gameObject.AddComponent<ServerDetector>();
-            detector.SetValues(forceServerBuild, serverSceneName);
+            detector.SetValues(serverSceneName, clientSceneName);
+            
             if (NetworkBehaviour.IsServerBuild)
                 NetworkingLogs.Prefix = "[server] ";
             else
@@ -56,6 +56,15 @@ namespace PackedNetworking
             gameObject.AddComponent<ClientHandshake>();
             gameObject.AddComponent<ServerHandshake>();
             gameObject.AddComponent<ThreadManager>();
+        }
+
+        internal void SetIp(string newValue)
+        {
+            if(NetworkSettings.IsValidIpAddress(newValue))
+                serverIp = newValue;
+            else
+                NetworkingLogs.LogError(
+                    $"Trying to set an invalid ip-address '{newValue}'. Make sure it's in the correct format.");
         }
     }
 }

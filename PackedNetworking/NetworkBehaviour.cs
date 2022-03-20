@@ -12,23 +12,10 @@ namespace PackedNetworking
 {
     public abstract class NetworkBehaviour : MonoBehaviour
     {
-        private static bool isServerBuildWasSet;
-        private static bool isServerBuild;
-        public static bool IsServerBuild
-        {
-            get => isServerBuild;
-            set
-            {
-                if (isServerBuildWasSet)
-                {
-                    NetworkingLogs.LogError($"The '{nameof(IsServerBuild)}' property can only be set once. Skipped this call.");
-                    return;
-                }
-                
-                isServerBuildWasSet = true;
-                isServerBuild = value;
-            }
-        }
+        protected static event Action onSetup;
+
+        public static bool IsServerBuild { get; internal set; }
+
         public static bool connectOnApplicationStart = false;
 
         protected static INetworkBehaviour behaviour;
@@ -56,7 +43,7 @@ namespace PackedNetworking
 
         protected static int ClientId => ClientInstance.ClientId;
         
-        private static bool IsSetUp => behaviour != null;
+        protected static bool BehaviourIsSet => behaviour != null;
 
         protected static readonly Dictionary<int, ConstructorInfo> packetConstructors = new Dictionary<int, ConstructorInfo>();
 
@@ -96,36 +83,68 @@ namespace PackedNetworking
         
         protected virtual void Awake()
         {
-            Setup(true);
+            Setup(true, null);
+            
+            if (!BehaviourIsSet)
+            {
+                NetworkingLogs.LogWarning("There are Network-Behaviours but no Networking-Manager in your scene.");
+            }
         }
 
-        public static void ConnectToServer()
+        /// <summary>
+        /// Boot client or server when 'connectOnApplicationStart' is set to false on the Networking Manager.
+        /// </summary>
+        /// <param name="manager">Your games Networking Manager</param>
+        /// <param name="overwrittenIsServerBuild">Decides whether or not you want to start the server or client.</param>
+        /// <param name="ip">An option to overwrite the server ip of the Networking Manager.</param>
+        public static void BootNetworking(NetworkingManager manager, bool overwrittenIsServerBuild, string ip = null)
         {
-            if (IsServerBuild)
+            if (manager == null)
             {
-                NetworkingLogs.LogError($"You cannot call the '{nameof(ConnectToServer)}' method on the server!");
+                NetworkingLogs.LogError($"You cannot pass null to the '{nameof(NetworkingManager)}'!");
                 return;
             }
             
-            Setup(false);
+            IsServerBuild = overwrittenIsServerBuild;
+            if(ip != null)
+                manager.SetIp(ip);
+            Setup(false, manager);
+        }
+        /// <summary>
+        /// Boot client or server when 'connectOnApplicationStart' is set to false on the Networking Manager.
+        /// </summary>
+        /// <param name="manager">Your games Networking Manager</param>
+        /// <param name="ip">The server ip to connect to.</param>
+        public static void BootNetworking(NetworkingManager manager, string ip = null)
+        {
+            if (manager == null)
+            {
+                NetworkingLogs.LogError($"You cannot pass null to the '{nameof(NetworkingManager)}'!");
+                return;
+            }
+            if(ip != null)
+                manager.SetIp(ip);
+            Setup(false, manager);
         }
         
         /// <summary>
         /// Setup call only called when the behaviour is instantiated.
         /// </summary>
-        private static void Setup(bool isApplicationStart)
+        private static void Setup(bool isApplicationStart, NetworkingManager manager)
         {
-            if(!IsSetUp)
-            {
-                if(IsServerBuild)
-                    behaviour = new ServerBehaviour(NetworkSettings.MaxPlayers);
-                else
-                    behaviour = new ClientBehaviour();
-            }
-            else if(behaviour.IsSetup) return;
+            if (BehaviourIsSet) return;
+            if (!connectOnApplicationStart && isApplicationStart) return;
 
-            if(IsServerBuild || connectOnApplicationStart || !isApplicationStart)
-                behaviour.Setup();
+            if (IsServerBuild)
+                behaviour = new ServerBehaviour(NetworkSettings.MaxPlayers);
+            else
+                behaviour = new ClientBehaviour();
+            
+            if(manager != null)
+                manager.Setup();
+            
+            behaviour.Setup();
+            onSetup?.Invoke();
         }
         
         protected void SendTcpPacket<PacketType>(PacketType packet) where PacketType : Packet

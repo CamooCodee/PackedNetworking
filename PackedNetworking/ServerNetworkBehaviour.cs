@@ -14,6 +14,14 @@ namespace PackedNetworking.Server
         
         protected override void Awake()
         {
+            if(BehaviourIsSet)
+                Setup();
+            else
+                onSetup += Setup;
+        }
+
+        private void Setup()
+        {
             if (!IsServerBuild)
             {
                 Destroy(this);
@@ -22,6 +30,9 @@ namespace PackedNetworking.Server
 
             base.Awake();
 
+            if (!BehaviourIsSet)
+                return;
+            
             behaviour.ListenForPacket<Packet>(OnPacket);
             ServerInstance.onClientConnect += OnClientConnect;
             ServerInstance.onClientDisconnect += OnClientDisconnect;

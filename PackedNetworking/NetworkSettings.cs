@@ -34,12 +34,14 @@ namespace PackedNetworking
             get => serverIp;
             set
             {
-                var isValidId = IPAddress.TryParse(value, out _);
+                var isValidId = IsValidIpAddress(value);
                 if (!isValidId)
                     NetworkingLogs.LogWarning("Trying to set invalid server Ip. Value not changing.");
                 else
                     serverIp = value;
             }
         }
+
+        public static bool IsValidIpAddress(string ip) => IPAddress.TryParse(ip, out _);
     }
 }

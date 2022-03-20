@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace PackedNetworking
 {
-    [DefaultExecutionOrder(-5)]
     public class AutoPacketSupporter : MonoBehaviour
     {
         private bool _logFoundPacketTypes;

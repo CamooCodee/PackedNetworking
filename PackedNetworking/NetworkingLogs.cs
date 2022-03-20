@@ -1,13 +1,15 @@
-﻿namespace PackedNetworking.Util
+﻿using UnityEngine;
+
+namespace PackedNetworking.Util
 {
     public static class NetworkingLogs
     {
         public delegate void Log(string message);
 
-        private static Log infoMthd;
-        private static Log warningMthd;
-        private static Log errorMthd;
-        private static Log fatalMthd;
+        private static Log infoMthd = Debug.Log;
+        private static Log warningMthd = Debug.LogWarning;
+        private static Log errorMthd = Debug.LogError;
+        private static Log fatalMthd = Debug.LogError;
 
         internal static string Prefix { get; set; }
 

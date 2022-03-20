@@ -25,6 +25,7 @@ namespace PackedNetworking
             SendTcpPacket(new HandshakeReceivedPacket(ClientId));
             ClientInstance.ConnectUdp();
             _handshakeCompleted = true;
+            ClientInstance.onHandshakeReceived?.Invoke();
             if(_udpTestCompleted) Destroy(this);
         }
 

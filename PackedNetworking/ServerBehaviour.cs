@@ -346,7 +346,7 @@ namespace PackedNetworking.Server
 
                         if (byteLength <= 0)
                         {
-                            DisconnectTcpAndUdp();
+                            DisconnectTcpAndUdp("Received byte-length was zero!");
                             return;
                         }
                         
@@ -356,9 +356,9 @@ namespace PackedNetworking.Server
                         _receivedData.Reset(HandleData(data));
                         BeginRead();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        DisconnectTcpAndUdp();
+                        DisconnectTcpAndUdp(e.ToString());
                     }
                 }
 
@@ -427,9 +427,9 @@ namespace PackedNetworking.Server
                     }
                 }
 
-                private void DisconnectTcpAndUdp()
+                private void DisconnectTcpAndUdp(string logMessage)
                 {
-                    _target._target._clients[_target.id].Disconnect();
+                    _target._target._clients[_target.id].Disconnect(logMessage);
                 }
                 
                 public void Disconnect()
@@ -512,9 +512,9 @@ namespace PackedNetworking.Server
                 }
             }
             
-            private void Disconnect()
+            private void Disconnect(string logMessage = "")
             {
-                NetworkingLogs.LogInfo($"Disconnecting client with id '{id}'.");
+                NetworkingLogs.LogInfo($"Disconnecting client with id '{id}'. {logMessage}");
                 _tcp.Disconnect();
                 udp.Disconnect();
                 _target.InvokeOnOnClientDisconnect(id);
@@ -555,15 +555,12 @@ namespace PackedNetworking.Server
         public void CompletedClientHandshake(int clientId)
         {
             _clients[clientId].CompletedHandshake = true;
-            //if(_clients[clientId].IsFullySetUp)
-                InvokeOnClientHandshakeComplete(clientId);
+            InvokeOnClientHandshakeComplete(clientId);
         }
         
         public void CompletedClientUdpTest(int clientId)
         {
             _clients[clientId].CompletedUdpTest = true;
-            /*if(_clients[clientId].IsFullySetUp)
-                InvokeOnClientHandshakeComplete(clientId);*/
         }
     }
 }

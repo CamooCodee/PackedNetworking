@@ -55,7 +55,8 @@ namespace PackedNetworking.Packets
         {
             if (IsTargetingAllClients && overwrittenTargetClient < 0)
             {
-                NetworkingLogs.LogError($"Can't build '{GetType().Name}' packet. The target client has to be overwritten or set in the packet.");
+                NetworkingLogs.LogError($"Can't build '{GetType().Name}' packet. The acting client has to be overwritten or set in the packet." +
+                                        $" Make sure you are passing the client id when sending a '{nameof(ClientServerPacket)}' from the client.");
                 return;
             }
 

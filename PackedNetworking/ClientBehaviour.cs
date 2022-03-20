@@ -90,6 +90,7 @@ namespace PackedNetworking.Client
         }
         
         private bool _isHandshake = true;
+        protected internal Action onHandshakeReceived;
 
         private void InvokePacketHandlers(Packet packet)
         {

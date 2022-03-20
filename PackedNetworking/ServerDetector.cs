@@ -9,18 +9,21 @@ namespace PackedNetworking
     public class ServerDetector : MonoBehaviour
     {
         private string _serverScene;
+        private string _clientScene;
 
         private void Start()
         {
             if(IsServerBuild && _serverScene.Length > 0)
                 SceneManager.LoadScene(_serverScene);
+            else if (!IsServerBuild && _clientScene.Length > 0)
+                SceneManager.LoadScene(_clientScene);
             Destroy(this);
         }
 
-        public void SetValues(bool force, string serverSceneName)
+        public void SetValues(string serverSceneName, string clientSceneName)
         {
             _serverScene = serverSceneName;
-            IsServerBuild = isBatchMode || force;
+            _clientScene = clientSceneName;
         }
     }
 }

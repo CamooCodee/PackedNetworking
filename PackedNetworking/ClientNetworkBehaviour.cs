@@ -14,6 +14,14 @@ namespace PackedNetworking.Client
 
         protected override void Awake()
         {
+            if(BehaviourIsSet)
+                Setup();
+            else
+                onSetup += Setup;
+        }
+
+        private void Setup()
+        {
             if (IsServerBuild)
             {
                 Destroy(this);
@@ -22,9 +30,13 @@ namespace PackedNetworking.Client
             
             base.Awake();
 
+            if (!BehaviourIsSet)
+                return;
+
+            ClientInstance.onHandshakeReceived += OnHandshakeReceived;
             behaviour.ListenForPacket<Packet>(OnPacket);
         }
-
+        
         protected new void SendTcpPacket<PacketType>(PacketType packet) where PacketType : Packet
         {
             var type = typeof(PacketType);
@@ -92,6 +104,11 @@ namespace PackedNetworking.Client
 
             foreach (var listener in toInvoke) 
                 listener.Invoke(packet);
+        }
+
+        public virtual void OnHandshakeReceived()
+        {
+            
         }
     }
 }
