@@ -1,4 +1,8 @@
-# PackedNetworking
+<p align="center">
+  <img src="LogoSmall.png" />
+</p>
+<h1 align="center">PackedNetworking</h1>
+
 A networking solution for Unity allowing low level server and client communication. Server and Client are in the same Unity project. 
 This library is based off of the old [C# Networking series by Tom Weiland](https://www.youtube.com/playlist?list=PLXkn83W0QkfnqsK8I0RAz5AbUxfg3bOQ5)
 
@@ -242,4 +246,4 @@ Make sure you are using named parameters, since every parameter has a default va
 ```
 NetworkingLogs.Set(NetworkingLogs.NoLog, NetworkingLogs.NoLog, NetworkingLogs.NoLog);
 ```
-Here the name of the parameter doesn't matter since you are setting all log types. The order of parameters is: `info`, `warning`, `error`. You **cannot** disable the fatal log messages.
+Here the name of the parameter doesn't matter since you are setting all log types. The order of parameters is: `info`, `warning`, `error`. You **cannot** disable/change the fatal log messages.
