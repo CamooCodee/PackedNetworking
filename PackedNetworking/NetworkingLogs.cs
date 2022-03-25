@@ -14,28 +14,25 @@ namespace PackedNetworking.Util
         internal static string Prefix { get; set; }
 
         /// <summary>
-        /// Sets the methods to use as loggers. By default 'error' and 'fatal' gets logged using Debug.LogError.
+        /// Sets the methods to use as loggers.
         /// </summary>
         /// <param name="info">E.g. info about connecting/disconnecting.</param>
         /// <param name="warning">Messages to make you aware of potential unexpected behaviour.</param>
         /// <param name="error">Improper use of the library.</param>
-        /// <param name="fatal">Errors, which should never occur, please contact me.</param>
-        public static void Set(Log info, Log warning, Log error, Log fatal)
+        public static void Set(Log info = null, Log warning = null, Log error = null)
         {
-            infoMthd = info;
-            warningMthd = warning;
-            errorMthd = error;
-            fatalMthd = fatal;
+            infoMthd = info ?? infoMthd;
+            warningMthd = warning ?? warningMthd;
+            errorMthd = error ?? errorMthd;
         }
+
+        public static void NoLog(string message) { }
 
         internal static void LogInfo(string message) => infoMthd?.Invoke(GetFullMessage(message));
         internal static void LogWarning(string message) => warningMthd?.Invoke(GetFullMessage(message));
         internal static void LogError(string message) => errorMthd?.Invoke(GetFullMessage(message));
         internal static void LogFatal(string message) => fatalMthd?.Invoke("FATAL: " + GetFullMessage(message));
 
-        private static string GetFullMessage(string message)
-        {
-            return Prefix + message;
-        }
+        private static string GetFullMessage(string message) => Prefix + message;
     }
 }

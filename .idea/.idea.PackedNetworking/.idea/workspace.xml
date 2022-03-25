@@ -17,21 +17,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb228b70-7236-4edf-afb2-0a430c5094cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PackedNetworking/PackedNetworkingBoot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/AutoPacketSupporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/AutoPacketSupporter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientHandshake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientHandshake.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientNetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientNetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientServerPacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientServerPacket.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkSettings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkingLogs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkingLogs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackedNetworking/PackedNetworking.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/PackedNetworking.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerDetector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerDetector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerNetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerNetworkBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/PackedNetworkingBoot.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +170,8 @@
       <workItem from="1647445481970" duration="5149000" />
       <workItem from="1647502667271" duration="3811000" />
       <workItem from="1647761023930" duration="3422000" />
-      <workItem from="1647774723528" duration="5260000" />
+      <workItem from="1647774723528" duration="5429000" />
+      <workItem from="1648210332421" duration="1373000" />
     </task>
     <servers />
   </component>
