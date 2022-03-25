@@ -8,21 +8,21 @@ The goal of this library is to offer a simple and easy to implement multiplayer 
 
 ## How To Get Started
 
-#### 1. The Networking Manager
+### 1. The Networking Manager
 
 The first scene of your game should contain a game object with the `NetowrkingManager` component attaced to it.
 Make sure to specify a port which isn't used by another application and if you want to test client and server on the same machine, use `127.0.0.1` as the ip-address. This is a loop-back ip address, meaning the machinge refers to itself.
 
-#### 2. The Server Scene
+### 2. The Server Scene
 
 If you want to, you can have a seperate server scene. This scene will be loaded when starting the game as a server. This will either be done when building your application in batch-mode or when you tick the `Force Server Build` boolean in the inspector of the `NetworkingManager`. To specify what server scene to load, enter the scene name into the `Server Scene Name` field and ensure the scene exits in the build settings. You don't _have_ to work with an additional server scene.
 Additionally, you don't have to worry about switching scenes on the client or server side. The networking manager is part of the `DontDestroyOnLoad` scene. Meaning once it exits, it will not be destroyed when a new scene is beeing loaded.
 
-#### 3. Testing The Setup
+### 3. Testing The Setup
 
 That's all the setup you need. Any sort of handshake for both, udp and tcp are handled by the library. In order to test, build the server or client side. If you want to build the server side, make sure you tick the `Force Server Build` box on the `NetworkingManager`. Also ensure the scene with the `NetworkingManager` is being loaded first. Once the build is completed, start up the server (the .exe that was built). Once the server is running, start the client in the Unity Editor. Make sure to untick `Force Server Build`. You might have to change focus between the `Unity Editor Game View` and the `.exe` that is running a few times, since by default Unity builds pause when they are running in the background. Eventually the Console in the Editor should say `Received Handshake: Handshake Message. Your client ID: n` (not the last message in the console). If this is the case, focuse the server build one more time. After that, the client and server are connected successfully.
 
-#### 4. Sending Custom Packets
+### 4. Sending Custom Packets
 
 [See the 'Packed Networking Essentials' on how to do this!](#packed-networking-essentials)
 
@@ -30,11 +30,11 @@ That's all the setup you need. Any sort of handshake for both, udp and tcp are h
 
 This is on a very basic level and the bare minimum you need to work with this framework.
 
-#### UDP
+### UDP
 
 Udp is an internet protocol, which stands for `User Datagram Protocol`. Udp isn't very reliable meaning data might get lost or reach the targeted machine in a different order than it was sent in. Use this for data which is send continously, for example user input. Udp is used due to performance benefits.
 
-#### TCP
+### TCP
 
 Tcp is another internet protocol, which stands for `Transmission Control Protocol`. It's much more reliable and basically guarantees the target to receive the data how it was intended. Use this when you send data with a single packet, for example the username or user inputs which occur less frequently like a jump.
 
@@ -217,7 +217,7 @@ Again, build and boot up the server. Ensure server and client are connected succ
 
 ## More Useful Features
 
-#### Client Server Packets
+### Client Server Packets
 
 All the possible constuctors for a `ClientServerPacket` are these:
 ```
@@ -226,3 +226,20 @@ public MessagePacket() : base(ID) { }
 public MessagePacket(Packet packet) : base(ID, packet) { }
 ```
 The first one can be used by server and client. On the client side `actingClient` has to be the clients `client id`. On the server, it provides the `client id` of the targeted client. The second constructor is optional and can only be used on the server side. It's used when the packed is supposed to target every client. Finally, the last constructor works the same way as every other constructor taking a `Packet`. It has to read all the values from the passed packet.
+
+### Changing Log Messages
+
+Packed Networking gives you the option to set your own logging methods. By default they are set to the unity Debug.Log methods. There are four different types of information Packed Networking Logs.  
+`info`: Basic information like connecting and disconnecting.  
+`warning`: Warnings informing you about potentual unexpected behaviuor.  
+`error`: Occurs when using the Framework incorrectly.  
+`fatal`: Please send me an email (`camo3519@gmail.com`) when you get a fatal error message. These occur when something goes wrong internally.  
+You can change the methods used for logging using the `NetworkingLogs` class. For example:  
+```
+NetworkingLogs.Set(info: Debug.LogError, error: CustomExceptionLogger);
+```
+Make sure you are using named parameters, since every parameter has a default value of null. In case you want to disable a log type, you can use the `NetworkingLogs.NoLog` method. So if you would like to disable all logs, you would have to type:  
+```
+NetworkingLogs.Set(NetworkingLogs.NoLog, NetworkingLogs.NoLog, NetworkingLogs.NoLog);
+```
+Here the name of the parameter doesn't matter since you are setting all log types. The order of parameters is: `info`, `warning`, `error`. You **cannot** disable the fatal log messages.
