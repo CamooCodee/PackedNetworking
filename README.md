@@ -3,7 +3,7 @@
   <img src="PackedNetworkingLogo.png"/>
 <br>
 <br>
-<text><i><b>A Unity Networking Solution</b><br>by Lukas Sacher</i></text>
+<text><i><b>A Unity Networking Solution</b><br>by Lukas Sacher</i><br><a href="https://discord.gg/FUrkPhC">My Discord</a></text>
 <br>
 <br>
 </p>
@@ -11,11 +11,15 @@
 PackedNetworking is a networking solution for Unity allowing low level server and client communication. Both, server and client are in a single Unity Project. 
 This library is based off of the old [C# Networking series by Tom Weiland](https://www.youtube.com/playlist?list=PLXkn83W0QkfnqsK8I0RAz5AbUxfg3bOQ5).
 
-Packed Networking is in very early stages and has only been tested within a closed network.
+Packed Networking is in very early stages and has only been tested within a closed network. If you run into any issues or bugs, feel free to help me make this solution a better product by joining the [discord server](https://discord.gg/FUrkPhC).
 
 The goal of this library is to offer a simple and easy to implement multiplayer system for small and medium sized games. Additionally it shouldn't overwhelm the user with a long feature list which makes it difficult to get started. Speaking of getting started...
 
 ## How To Get Started
+
+### 0. The Installation
+
+Go to the release you want to download. Download the .dll file and drag and drop it into your Unity project. Done!
 
 ### 1. The Networking Manager
 
