@@ -1,6 +1,6 @@
 ﻿namespace PackedNetworking.Packets
 {
-    public class UdpTestReceived : ClientPacket
+    internal class UdpTestReceived : ClientPacket
     {
         public const int ID = (int) PacketTypes.UdpTestReceived;
         

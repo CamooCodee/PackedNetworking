@@ -14,9 +14,12 @@ namespace PackedNetworking
     {
         protected static event Action onSetup;
 
+        /// <summary>
+        /// If the current game instance is a server or a client.
+        /// </summary>
         public static bool IsServerBuild { get; internal set; }
 
-        public static bool connectOnApplicationStart = false;
+        internal static bool connectOnApplicationStart = false;
 
         protected static INetworkBehaviour behaviour;
 
@@ -47,11 +50,22 @@ namespace PackedNetworking
 
         protected static readonly Dictionary<int, ConstructorInfo> packetConstructors = new Dictionary<int, ConstructorInfo>();
 
+        /// <summary>
+        /// Manually add a packet type that can then be received and send.
+        /// </summary>
+        /// <param name="id">The id of the packet to add.</param>
+        /// <typeparam name="T">The type of the packet to add.</typeparam>
         public static void AddSupportedPacketType<T>(int id)
         {
             var type = typeof(T);
             AddSupportedPacketType(type, id);
         }
+
+        /// <summary>
+        /// Manually add a packet type that can then be received and send.
+        /// </summary>
+        /// <param name="type">The type of the packet to add.</param>
+        /// <param name="id">The id of the packet to add.</param>
         public static void AddSupportedPacketType(Type type, int id)
         {
             var constr = type.GetConstructors().FirstOrDefault(c => c.GetParameters().Length == 1 &&
@@ -65,7 +79,7 @@ namespace PackedNetworking
                 NetworkingLogs.LogWarning($"Already added a packet with id '{id}'. Not adding again.");
         }
 
-        public static bool TryBuildPacketBy(Packet packet, int id, out Packet target)
+        internal static bool TryBuildPacketBy(Packet packet, int id, out Packet target)
         {
             try
             {

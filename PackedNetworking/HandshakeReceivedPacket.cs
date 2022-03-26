@@ -1,6 +1,6 @@
 ﻿namespace PackedNetworking.Packets
 {
-    public class HandshakeReceivedPacket : ClientPacket
+    internal class HandshakeReceivedPacket : ClientPacket
     {
         public const int ID = (int) PacketTypes.HandshakeReceived;
         

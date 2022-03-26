@@ -62,7 +62,7 @@ namespace PackedNetworking
             return -1;
         }
 
-        public void SetValues(bool active, bool printPacketClasses)
+        internal void SetValues(bool active, bool printPacketClasses)
         {
             _logFoundPacketTypes = printPacketClasses;
             if(active)

@@ -1,9 +1,11 @@
 ﻿using PackedNetworking.Client;
 using PackedNetworking.Util;
-using UnityEngine;
 
 namespace PackedNetworking.Packets
 {
+    /// <summary>
+    /// Send in both directions.
+    /// </summary>
     public abstract class ClientServerPacket : Packet, IServerSendable
     {
         /// <summary>
@@ -26,6 +28,8 @@ namespace PackedNetworking.Packets
         /// <summary>
         /// This will make the packet usable as a server or client packet.
         /// </summary>
+        /// <param name="packetId">The packet id defining what type of packet this is.</param>
+        /// <param name="actingClient">The sending client id or the targeted client.</param>
         public ClientServerPacket(int packetId, int actingClient) : base(packetId)
         {
             if (actingClient < 0)
@@ -38,20 +42,23 @@ namespace PackedNetworking.Packets
         }
 
         /// <summary>
-        /// This will instantiate the packet as a server packet which is targeting all clients.
+        /// This will instantiate the packet as a server packet which is targeting all clients. Cannot be used on the client side.
         /// </summary>
+        /// <param name="packetId">The packet id defining what type of packet this is.</param>
         public ClientServerPacket(int packetId) : base(packetId)
         {
             IsTargetingAllClients = true;
             _actingClient = -1;
         }
         
+        /// <param name="packetId">The packet id defining what type of packet this is.</param>
+        /// <param name="packet">A packet used to build up this packet type.</param>
         public ClientServerPacket(int packetId, Packet packet) : base(packetId)
         {
             if(NetworkBehaviour.IsServerBuild) _actingClient = packet.ReadInt();
         }
-        
-        public override void Build(int overwrittenTargetClient = -1)
+
+        internal override void Build(int overwrittenTargetClient = -1)
         {
             if (IsTargetingAllClients && overwrittenTargetClient < 0)
             {
@@ -68,7 +75,7 @@ namespace PackedNetworking.Packets
             base.Build(overwrittenTargetClient);
         }
 
-        public override void UndoBuild()
+        internal override void UndoBuild()
         {
             RemoveLeadingInt();
             RemoveLeadingInt();

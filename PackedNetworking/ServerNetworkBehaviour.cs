@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using PackedNetworking.Packets;
 using PackedNetworking.Util;
-using UnityEngine;
 using static PackedNetworking.INetworkBehaviour;
-using static PackedNetworking.PacketValidator.Server;
+using static PackedNetworking.Util.PacketValidator.Server;
 
 namespace PackedNetworking.Server
 {
@@ -36,9 +35,13 @@ namespace PackedNetworking.Server
             behaviour.ListenForPacket<Packet>(OnPacket);
             ServerInstance.onClientConnect += OnClientConnect;
             ServerInstance.onClientDisconnect += OnClientDisconnect;
-            ServerInstance.onClientHandshakeComplete += OnClientHandshakeCompleted;
+            ServerInstance.onClientConnectionComplete += OnClientConnectionCompleted;
         }
 
+        /// <summary>
+        /// Sends the given packet the targeted client(s) using tcp.
+        /// </summary>
+        /// <param name="packet">The packet you want to send.</param>
         protected new void SendTcpPacket<PacketType>(PacketType packet) where PacketType : Packet
         {
             var type = typeof(PacketType);
@@ -49,6 +52,10 @@ namespace PackedNetworking.Server
             }
             base.SendTcpPacket(packet);
         }
+        /// <summary>
+        /// Sends the given packet the targeted client(s) using udp.
+        /// </summary>
+        /// <param name="packet">The packet you want to send.</param>
         protected new void SendUdpPacket<PacketType>(PacketType packet) where PacketType : Packet
         {
             var type = typeof(PacketType);
@@ -60,6 +67,11 @@ namespace PackedNetworking.Server
             base.SendUdpPacket(packet);
         }
 
+        /// <summary>
+        /// Add a method for a packet you want to listen for.
+        /// </summary>
+        /// <param name="handler">The method executed when receiving the packet.</param>
+        /// <typeparam name="PacketType">The type of the packet to listen for.</typeparam>
         protected void ListenForPacket<PacketType>(PacketHandler handler) where PacketType : Packet
         {
             var type = typeof(PacketType);
@@ -80,6 +92,11 @@ namespace PackedNetworking.Server
                 _packetListeners.Add(type, new List<PacketHandler> {clientHandler});
         }
 
+        /// <summary>
+        /// Remove a method which is currently listening for a packet.
+        /// </summary>
+        /// <param name="handler">The method supposed to stop listening.</param>
+        /// <typeparam name="PacketType">The type of the packet you want to stop listening for.</typeparam>
         protected void StopListeningForPacket<PacketType>(PacketHandler handler) where PacketType : Packet
         {
             if(handler == null) return;
@@ -103,16 +120,27 @@ namespace PackedNetworking.Server
                 listener.Invoke(packet);
         }
 
+        /// <summary>
+        /// Executed when a client connection is detected. DON'T send packets from inside of this method.
+        /// </summary>
         public virtual void OnClientConnect()
         {
             
         }
         
-        public virtual void OnClientHandshakeCompleted(int clientId)
+        /// <summary>
+        /// Executed when a client is fully connected to the server. You can send packets from inside of this method.
+        /// </summary>
+        /// <param name="clientId">The client id of the client connecting.</param>
+        public virtual void OnClientConnectionCompleted(int clientId)
         {
             
         }
         
+        /// <summary>
+        /// Executed whenever a client disconnects.
+        /// </summary>
+        /// <param name="clientId">The client id of the client disconnecting.</param>
         public virtual void OnClientDisconnect(int clientId)
         {
             

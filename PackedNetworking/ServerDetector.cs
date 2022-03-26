@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using static PackedNetworking.NetworkBehaviour;
-using static UnityEngine.Application;
 
 namespace PackedNetworking
 {
@@ -20,7 +19,7 @@ namespace PackedNetworking
             Destroy(this);
         }
 
-        public void SetValues(string serverSceneName, string clientSceneName)
+        internal void SetValues(string serverSceneName, string clientSceneName)
         {
             _serverScene = serverSceneName;
             _clientScene = clientSceneName;

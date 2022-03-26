@@ -5,7 +5,6 @@ using System.Net.Sockets;
 using PackedNetworking.Packets;
 using PackedNetworking.Threading;
 using PackedNetworking.Util;
-using UnityEngine;
 using static PackedNetworking.INetworkBehaviour;
 using static PackedNetworking.NetworkBehaviour;
 
@@ -55,8 +54,6 @@ namespace PackedNetworking.Client
             _upd.DisconnectSocket();
             NetworkingLogs.LogInfo("Disconnected from server!");
         }
-
-        public bool IsSetup => IsConnected;
 
         public void Setup()
         {

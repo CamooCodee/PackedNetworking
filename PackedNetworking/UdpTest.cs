@@ -1,6 +1,6 @@
 ﻿namespace PackedNetworking.Packets
 {
-    public class UdpTest : ServerPacket
+    internal class UdpTest : ServerPacket
     {
         public const int ID = (int) PacketTypes.UdpTest;
         public readonly string message;

@@ -26,6 +26,10 @@ namespace PackedNetworking.Util
             errorMthd = error ?? errorMthd;
         }
 
+        /// <summary>
+        /// Use this to disable a logging type by passing this method into the corresponding parameter of the 'Set' method.
+        /// </summary>
+        /// <param name="message"></param>
         public static void NoLog(string message) { }
 
         internal static void LogInfo(string message) => infoMthd?.Invoke(GetFullMessage(message));

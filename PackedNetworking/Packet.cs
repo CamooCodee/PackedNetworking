@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using PackedNetworking.Util;
-using UnityEngine;
 
 namespace PackedNetworking.Packets
 {
@@ -15,7 +14,7 @@ namespace PackedNetworking.Packets
             get
             {
                 if (_packetId < 0)
-                    NetworkingLogs.LogFatal("FATAL: Trying to receive packet id when it's not defined.\nTry using a different constructor.");
+                    NetworkingLogs.LogFatal("Trying to receive packet id when it's not defined.\nTry using a different constructor.");
                 
                 return _packetId;
             }
@@ -29,13 +28,13 @@ namespace PackedNetworking.Packets
                 _packetId = value;
             }
         }
-        
-        public virtual void Build(int overwrittenTargetClient = -1)
+
+        internal virtual void Build(int overwrittenTargetClient = -1)
         {
             InsertInt(Length());
         }
 
-        public virtual void UndoBuild()
+        internal virtual void UndoBuild()
         {
             RemoveLeadingInt();
         }
@@ -54,7 +53,7 @@ namespace PackedNetworking.Packets
         }
         
         /// <summary>Creates a new empty packet (without an ID).</summary>
-        public Packet()
+        internal Packet()
         {
             _buffer = new List<byte>(); // Initialize buffer
             _readPos = 0; // Set readPos to 0
@@ -62,7 +61,7 @@ namespace PackedNetworking.Packets
         
         /// <summary>Creates a packet from which data can be read. Used for receiving.</summary>
         /// <param name="data">The bytes to add to the packet.</param>
-        public Packet(byte[] data)
+        internal Packet(byte[] data)
         {
             _buffer = new List<byte>(); // Initialize buffer
             _readPos = 0; // Set readPos to 0
@@ -359,9 +358,9 @@ namespace PackedNetworking.Packets
         }
         #endregion
 
-        private bool _disposed = false;
+        private bool _disposed;
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!_disposed)
             {

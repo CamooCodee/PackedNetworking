@@ -1,7 +1,7 @@
 ﻿
 namespace PackedNetworking.Packets
 {
-    public class HandshakePacket : ServerPacket
+    internal class HandshakePacket : ServerPacket
     {
         public const int ID = (int) PacketTypes.Handshake;
         public readonly string message;

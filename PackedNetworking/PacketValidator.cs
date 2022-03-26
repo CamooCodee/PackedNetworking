@@ -1,9 +1,8 @@
 ﻿using PackedNetworking.Packets;
-using PackedNetworking.Util;
 
-namespace PackedNetworking
+namespace PackedNetworking.Util
 {
-    public static class PacketValidator
+    internal static class PacketValidator
     {
         public static class Client
         {

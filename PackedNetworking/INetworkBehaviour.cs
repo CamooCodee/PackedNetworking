@@ -4,7 +4,9 @@ namespace PackedNetworking
 {
     public interface INetworkBehaviour
     {
-        public bool IsSetup { get; }
+        /// <summary>
+        /// This is a delegate for methods that are listening for packets on both, server and client side.
+        /// </summary>
         public delegate void PacketHandler(Packet packet);
         public void Setup();
         public void SendTcpPacket(Packet packet);

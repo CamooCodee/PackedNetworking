@@ -19,19 +19,17 @@ namespace PackedNetworking.Server
         private UdpClient _udpListener;
         private readonly Dictionary<int, Client> _clients = new Dictionary<int, Client>();
 
-        public event Action onClientConnect;
-        public event Action<int> onClientHandshakeComplete;
-        public event Action<int> onClientDisconnect;
+        internal event Action onClientConnect;
+        internal event Action<int> onClientConnectionComplete;
+        internal event Action<int> onClientDisconnect;
         private readonly List<PacketHandler> _packetHandlers = new List<PacketHandler>();
         
-        public ServerBehaviour(int maxPlayers = 16)
+        internal ServerBehaviour(int maxPlayers = 16)
         {
             this._maxPlayers = Mathf.Max(maxPlayers, 0);
             for (int i = 1; i <= _maxPlayers; i++) 
                 _clients.Add(i, new Client(i, this));
         }
-
-        public bool IsSetup => _isRunning;
 
         public void Setup()
         {
@@ -251,7 +249,6 @@ namespace PackedNetworking.Server
             /// </summary>
             public bool IsUsed => _tcp.IsConnected;
 
-            public bool IsFullySetUp => CompletedUdpTest && CompletedHandshake;
             public bool CompletedHandshake { get; set; }
             public bool CompletedUdpTest { get; set; }
 
@@ -452,7 +449,7 @@ namespace PackedNetworking.Server
                         if (!client.IsUsed) unusedClientCount++;
                     }
                     
-                    return _target._target._maxPlayers - unusedClientCount;
+                    return unusedClientCount;
                 }
             }
 
@@ -538,11 +535,7 @@ namespace PackedNetworking.Server
                 handler.Invoke(finalPacket);
             }
         }
-
-        private void InvokeOnClientHandshakeComplete(int clientId)
-        {
-            onClientHandshakeComplete?.Invoke(clientId);
-        }
+        
         private void InvokeOnOnClientConnect()
         {
             ThreadManager.ExecuteOnNextUpdate(onClientConnect);
@@ -552,15 +545,22 @@ namespace PackedNetworking.Server
             ThreadManager.ExecuteOnNextUpdate(delegate { onClientDisconnect?.Invoke(clientId); });
         }
 
-        public void CompletedClientHandshake(int clientId)
+        internal void CompletedClientHandshake(int clientId)
         {
             _clients[clientId].CompletedHandshake = true;
-            InvokeOnClientHandshakeComplete(clientId);
+            if(_clients[clientId].CompletedUdpTest)
+                CompletedClientConnection(clientId);
         }
-        
-        public void CompletedClientUdpTest(int clientId)
+        internal void CompletedClientUdpTest(int clientId)
         {
             _clients[clientId].CompletedUdpTest = true;
+            if(_clients[clientId].CompletedHandshake)
+                CompletedClientConnection(clientId);
+        }
+
+        private void CompletedClientConnection(int clientId)
+        {
+            onClientConnectionComplete?.Invoke(clientId);
         }
     }
 }
