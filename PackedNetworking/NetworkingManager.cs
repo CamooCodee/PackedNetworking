@@ -53,6 +53,7 @@ namespace PackedNetworking
             
             var autoSupport = gameObject.AddComponent<AutoPacketSupporter>();
             autoSupport.SetValues(active, printPacketClasses);
+            
             gameObject.AddComponent<ClientHandshake>();
             gameObject.AddComponent<ServerHandshake>();
             gameObject.AddComponent<ThreadManager>();

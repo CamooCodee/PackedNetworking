@@ -13,6 +13,7 @@ namespace PackedNetworking.Client
 
         protected override void Awake()
         {
+            base.Awake();
             if(BehaviourIsSet)
                 Setup();
             else

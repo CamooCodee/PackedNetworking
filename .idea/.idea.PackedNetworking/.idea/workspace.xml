@@ -18,24 +18,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cb228b70-7236-4edf-afb2-0a430c5094cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/AutoPacketSupporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/AutoPacketSupporter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientHandshake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientHandshake.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientNetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientNetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientPacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientPacket.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientServerPacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientServerPacket.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/HandshakePacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/HandshakePacket.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/HandshakeReceivedPacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/HandshakeReceivedPacket.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/INetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/INetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkingLogs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkingLogs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/Packet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/Packet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/PacketValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/PacketValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerDetector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerDetector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerHandshake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerHandshake.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerNetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerNetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerPacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerPacket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +38,6 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/../../UnityProjekte/PackedNetworkingCleanTest/Assets/ExampleServerPacket.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29A6C194-5F57-4474-95FC-AD42118554C7/2d/ecbadd1e/UdpClient.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -186,7 +169,8 @@
       <workItem from="1647761023930" duration="3422000" />
       <workItem from="1647774723528" duration="5429000" />
       <workItem from="1648210332421" duration="2757000" />
-      <workItem from="1648280593905" duration="2185000" />
+      <workItem from="1648280593905" duration="3006000" />
+      <workItem from="1648294813644" duration="1622000" />
     </task>
     <servers />
   </component>
