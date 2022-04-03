@@ -31,7 +31,7 @@ namespace PackedNetworking.Server
                 _clients.Add(i, new Client(i, this));
         }
 
-        public void Setup()
+        void INetworkBehaviour.Setup()
         {
             if (_isRunning)
             {
@@ -51,7 +51,7 @@ namespace PackedNetworking.Server
             _isRunning = true;
         }
 
-        public void SendTcpPacket(Packet packet)
+        void INetworkBehaviour.SendTcpPacket(Packet packet)
         {
             if (!(packet is IServerSendable serverPacket))
             {
@@ -77,7 +77,7 @@ namespace PackedNetworking.Server
             }
         }
 
-        public void SendUdpPacket(Packet packet)
+        void INetworkBehaviour.SendUdpPacket(Packet packet)
         {
             if (!(packet is IServerSendable serverPacket))
             {
@@ -103,7 +103,7 @@ namespace PackedNetworking.Server
             }
         }
 
-        public void ListenForPacket<T>(PacketHandler listener) where T : Packet
+        void INetworkBehaviour.ListenForPacket<T>(PacketHandler listener)
         {
             if(listener != null && !_packetHandlers.Contains(listener))
                 _packetHandlers.Add(listener);
@@ -471,7 +471,7 @@ namespace PackedNetworking.Server
                 public void Connect(IPEndPoint endPoint)
                 {
                     EndPoint = endPoint;
-                    _target._target.SendUdpPacket(new UdpTest("Udp Test Message.", _target.id));
+                    ((INetworkBehaviour)_target._target).SendUdpPacket(new UdpTest("Udp Test Message.", _target.id));
                 }
 
                 public void SendData(Packet data, int overwrittenTargetClient = -1)

@@ -12,7 +12,7 @@ namespace PackedNetworking
 {
     public abstract class NetworkBehaviour : MonoBehaviour
     {
-        protected static event Action onSetup;
+        protected internal static event Action onSetup;
 
         /// <summary>
         /// If the current game instance is a server or a client.
@@ -21,7 +21,7 @@ namespace PackedNetworking
 
         internal static bool connectOnApplicationStart = false;
 
-        protected static INetworkBehaviour behaviour;
+        protected internal static INetworkBehaviour behaviour;
 
         internal static ServerBehaviour ServerInstance
         {
@@ -46,9 +46,9 @@ namespace PackedNetworking
 
         protected static int ClientId => ClientInstance.ClientId;
         
-        protected static bool BehaviourIsSet => behaviour != null;
+        protected internal static bool BehaviourIsSet => behaviour != null;
 
-        protected static readonly Dictionary<int, ConstructorInfo> packetConstructors = new Dictionary<int, ConstructorInfo>();
+        private static readonly Dictionary<int, ConstructorInfo> packetConstructors = new Dictionary<int, ConstructorInfo>();
 
         /// <summary>
         /// Manually add a packet type that can then be received and send.
@@ -161,12 +161,12 @@ namespace PackedNetworking
             onSetup?.Invoke();
         }
         
-        protected void SendTcpPacket<PacketType>(PacketType packet) where PacketType : Packet
+        protected internal void SendTcpPacket<PacketType>(PacketType packet) where PacketType : Packet
         {
             behaviour.SendTcpPacket(packet);
         }
         
-        protected void SendUdpPacket<PacketType>(PacketType packet) where PacketType : Packet
+        protected internal void SendUdpPacket<PacketType>(PacketType packet) where PacketType : Packet
         {
             behaviour.SendUdpPacket(packet);
         }

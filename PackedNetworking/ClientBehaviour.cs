@@ -56,26 +56,26 @@ namespace PackedNetworking.Client
             NetworkingLogs.LogInfo("Disconnected from server!");
         }
 
-        public void Setup()
+        void INetworkBehaviour.Setup()
         {
             _tcp = new Tcp(this);
             IsConnected = true;
             _tcp.Connect();
         }
-        
-        public void SendTcpPacket(Packet packet)
+
+        void INetworkBehaviour.SendTcpPacket(Packet packet)
         {
             packet.Build();
             _tcp.SendData(packet);
         }
 
-        public void SendUdpPacket(Packet packet)
+        void INetworkBehaviour.SendUdpPacket(Packet packet)
         {
             packet.Build();
             _upd.SendData(packet);
         }
 
-        public void ListenForPacket<T>(PacketHandler listener) where T : Packet
+        void INetworkBehaviour.ListenForPacket<T>(PacketHandler listener)
         {
             if(listener != null && !_packetHandlers.Contains(listener))
                 _packetHandlers.Add(listener);
