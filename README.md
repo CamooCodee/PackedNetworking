@@ -19,7 +19,7 @@ The goal of this library is to offer a simple and easy to implement multiplayer 
 
 ### 0. The Installation
 
-Go to the release you want to download. Download the .dll file and drag and drop it into your Unity project. Done!
+Go to the release you want to download. Download the .dll and .xml files and drag and drop them into your Unity project. Done!
 
 ### 1. The Networking Manager
 
