@@ -17,9 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb228b70-7236-4edf-afb2-0a430c5094cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientNetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientNetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientBehaviour.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +169,7 @@
       <workItem from="1648210332421" duration="2757000" />
       <workItem from="1648280593905" duration="3006000" />
       <workItem from="1648294813644" duration="1622000" />
+      <workItem from="1648968351556" duration="433000" />
     </task>
     <servers />
   </component>

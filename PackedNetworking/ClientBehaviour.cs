@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using PackedNetworking.Packets;
@@ -110,7 +111,10 @@ namespace PackedNetworking.Client
 
             finalPacket.PacketId = packetId;
             
-            foreach (var handler in _packetHandlers) 
+            // Converting ToList in order to iterate over a copy.
+            // Otherwise the list might be modified during iteration
+            // (within one of the invoked packet-handelers) causing an exception.
+            foreach (var handler in _packetHandlers.ToList())  
                 handler.Invoke(finalPacket);
         }
         
