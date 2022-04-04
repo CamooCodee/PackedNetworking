@@ -16,6 +16,8 @@ namespace PackedNetworking.Client
         private Tcp _tcp;
         private Udp _upd;
         private readonly List<PacketHandler> _packetHandlers = new List<PacketHandler>();
+
+        internal Action onConnectionEstablished;
         
         private int _clientId = -1;
         internal int ClientId
@@ -88,7 +90,6 @@ namespace PackedNetworking.Client
         }
         
         private bool _isHandshake = true;
-        protected internal Action onHandshakeReceived;
 
         private void InvokePacketHandlers(Packet packet)
         {

@@ -20,6 +20,12 @@ namespace PackedNetworking.Client
                 onSetup += Setup;
         }
 
+        private void Update()
+        {
+            if(ClientInstance.IsConnected)
+                ConnectedUpdate();
+        }
+
         private void Setup()
         {
             if (IsServerBuild)
@@ -33,7 +39,7 @@ namespace PackedNetworking.Client
             if (!BehaviourIsSet)
                 return;
 
-            ClientInstance.onHandshakeReceived += OnHandshakeReceived;
+            ClientInstance.onConnectionEstablished += OnConnectionEstablished;
             behaviour.ListenForPacket<Packet>(OnPacket);
         }
         
@@ -122,11 +128,20 @@ namespace PackedNetworking.Client
             foreach (var listener in toInvoke) 
                 listener.Invoke(packet);
         }
+        
 
         /// <summary>
-        /// Executed when the client receives the handshake from the server.
+        /// Called when the client established a connection to the server.
         /// </summary>
-        public virtual void OnHandshakeReceived()
+        public virtual void OnConnectionEstablished()
+        {
+            
+        }
+        
+        /// <summary>
+        /// Equivalent to Unity's Update method except it starts only when the client has established a connection. 
+        /// </summary>
+        public virtual void ConnectedUpdate()
         {
             
         }

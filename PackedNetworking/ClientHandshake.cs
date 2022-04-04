@@ -33,7 +33,7 @@ namespace PackedNetworking
             NetworkingLogs.LogInfo("Received Udp Test: " + udpTest.message);
             SendUdpPacket(new UdpTestReceived(ClientId));
             _udpTestCompleted = true;
-            ClientInstance.onHandshakeReceived?.Invoke();
+            ClientInstance.onConnectionEstablished?.Invoke();
             if(_handshakeCompleted) Destroy(this);
         }
     }
