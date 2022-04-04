@@ -18,7 +18,7 @@ namespace PackedNetworking.Client
         private readonly List<PacketHandler> _packetHandlers = new List<PacketHandler>();
         
         private int _clientId = -1;
-        public int ClientId
+        internal int ClientId
         {
             get
             {
@@ -43,7 +43,7 @@ namespace PackedNetworking.Client
                 _clientId = value;
             }
         }
-
+        
         public bool IsConnected { get; private set; }
 
         public void Disconnect()
