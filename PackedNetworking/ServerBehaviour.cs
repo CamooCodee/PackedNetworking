@@ -214,6 +214,17 @@ namespace PackedNetworking.Server
             
             throw new Exception("Cannot get next unused client. The server seems to be full.");
         }
+
+        internal int[] GetAllConnectedClientIds()
+        {
+            var idList = new List<int>();
+            for (var i = 0; i < _clients.Count; i++)
+            {
+                if(_clients[i].IsUsed)
+                    idList.Add(_clients[i].id);
+            }
+            return idList.ToArray();
+        }
         
         public bool IsFull()
         {

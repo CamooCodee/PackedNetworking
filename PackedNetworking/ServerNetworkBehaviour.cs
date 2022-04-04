@@ -11,6 +11,12 @@ namespace PackedNetworking.Server
     {
         private readonly Dictionary<Type, List<PacketHandler>> _packetListeners = new Dictionary<Type, List<PacketHandler>>();
         
+        /// <summary>
+        /// Returns all ids of the currently connected clients.
+        /// Clients don't have to be fully connected and set up in order to be included.
+        /// </summary>
+        protected int[] ConnectedClientIds => ServerInstance.GetAllConnectedClientIds();
+
         protected override void Awake()
         {
             if(BehaviourIsSet)
