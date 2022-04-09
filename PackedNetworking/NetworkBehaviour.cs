@@ -44,9 +44,6 @@ namespace PackedNetworking
             }
         }
 
-        /// <summary>
-        /// Every client has a unique id. This is the id of the client on the client side.
-        /// </summary>
         public static int ClientId => ClientInstance.ClientId;
         
         protected internal static bool BehaviourIsSet => behaviour != null;
@@ -152,6 +149,8 @@ namespace PackedNetworking
             if (BehaviourIsSet) return;
             if (!connectOnApplicationStart && isApplicationStart) return;
 
+            manager.UpdateSettings();
+            
             if (IsServerBuild)
                 behaviour = new ServerBehaviour(NetworkSettings.MaxPlayers);
             else

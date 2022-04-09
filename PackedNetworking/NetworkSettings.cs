@@ -20,11 +20,11 @@ namespace PackedNetworking
             set => Mathf.Max(2048, value);
         }
 
-        private static int maxPlayers = 4;
+        private static int maxPlayers = 2;
         public static int MaxPlayers
         {
             get => maxPlayers;
-            set => Mathf.Max(1, value);
+            set => maxPlayers = Mathf.Max(1, value);
         }
 
         private static string serverIp = "127.0.0.1";

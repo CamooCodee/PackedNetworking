@@ -10,7 +10,7 @@ namespace PackedNetworking.Client
     public class ClientNetworkBehaviour : NetworkBehaviour
     {
         private readonly Dictionary<Type, List<PacketHandler>> _packetListeners = new Dictionary<Type, List<PacketHandler>>();
-        
+
         protected override void Awake()
         {
             base.Awake();

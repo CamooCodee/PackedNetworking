@@ -29,18 +29,19 @@ namespace PackedNetworking
             NetworkBehaviour.connectOnApplicationStart = connectOnApplicationStart;
             NetworkBehaviour.IsServerBuild = Application.isBatchMode || forceServerBuild;
 
-            if(!connectOnApplicationStart)
-                return;
-            
-            Setup();
+            if (connectOnApplicationStart) Setup();
         }
 
-        internal void Setup()
+        internal void UpdateSettings()
         {
             NetworkSettings.Port = port;
             NetworkSettings.ServerIp = serverIp;
             NetworkSettings.MaxPlayers = maxClients;
-            
+        }
+
+        internal void Setup()
+        {
+            UpdateSettings();
             gameObject.AddComponent<GameLifetimeGameObject>();
             
             var detector = gameObject.AddComponent<ServerDetector>();

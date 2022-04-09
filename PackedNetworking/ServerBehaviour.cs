@@ -24,9 +24,10 @@ namespace PackedNetworking.Server
         internal event Action<int> onClientDisconnect;
         private readonly List<PacketHandler> _packetHandlers = new List<PacketHandler>();
         
-        internal ServerBehaviour(int maxPlayers = 16)
+        internal ServerBehaviour(int maxPlayers)
         {
-            this._maxPlayers = Mathf.Max(maxPlayers, 0);
+            _maxPlayers = Mathf.Max(maxPlayers, 0);
+            Debug.Log($"Starting with {_maxPlayers} as the maximum client count.");
             for (int i = 1; i <= _maxPlayers; i++) 
                 _clients.Add(i, new Client(i, this));
         }
@@ -191,7 +192,7 @@ namespace PackedNetworking.Server
         /// <returns></returns>
         Client GetNextUnusedClient()
         {
-            for (int i = 1; i < _maxPlayers; i++)
+            for (int i = 1; i <= _maxPlayers; i++)
             {
                 if (!_clients[i].IsUsed)
                     return _clients[i];
@@ -206,13 +207,13 @@ namespace PackedNetworking.Server
         /// <returns></returns>
         public int GetNextHandshakeClientId()
         {
-            for (int i = 1; i < _maxPlayers; i++)
+            for (int i = 1; i <= _maxPlayers; i++)
             {
                 if (!_clients[i].CompletedHandshake)
                     return i;
             }
             
-            throw new Exception("Cannot get next unused client. The server seems to be full.");
+            throw new Exception("Cannot get next handshake client. The server seems to be full.");
         }
 
         internal int[] GetAllConnectedClientIds()

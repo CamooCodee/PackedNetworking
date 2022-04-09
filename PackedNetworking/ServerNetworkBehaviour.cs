@@ -10,7 +10,7 @@ namespace PackedNetworking.Server
     public abstract class ServerNetworkBehaviour : NetworkBehaviour
     {
         private readonly Dictionary<Type, List<PacketHandler>> _packetListeners = new Dictionary<Type, List<PacketHandler>>();
-        
+
         /// <summary>
         /// Returns all ids of the currently connected clients.
         /// Clients don't have to be fully connected and set up in order to be included.
