@@ -20,10 +20,16 @@ namespace PackedNetworking.Client
                 onSetup += Setup;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if(ClientInstance.IsConnected)
                 ConnectedUpdate();
+        }
+
+        protected virtual void OnApplicationQuit()
+        {
+            if(!IsServerBuild)
+                ClientInstance.Disconnect();
         }
 
         private void Setup()
