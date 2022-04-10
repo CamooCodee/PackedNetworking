@@ -27,7 +27,6 @@ namespace PackedNetworking.Server
         internal ServerBehaviour(int maxPlayers)
         {
             _maxPlayers = Mathf.Max(maxPlayers, 0);
-            Debug.Log($"Starting with {_maxPlayers} as the maximum client count.");
             for (int i = 1; i <= _maxPlayers; i++) 
                 _clients.Add(i, new Client(i, this));
         }
@@ -238,6 +237,19 @@ namespace PackedNetworking.Server
             return true;
         }
         
+        internal int GetClientSlotAmount()
+        {
+            int unusedClientCount = 0;
+                    
+            foreach (var keyValuePair in _clients)
+            {
+                var client = keyValuePair.Value;
+                if (!client.IsUsed) unusedClientCount++;
+            }
+                    
+            return unusedClientCount;
+        }
+        
         /// <summary>
         /// Represents a connected client.
         /// </summary>
@@ -338,7 +350,7 @@ namespace PackedNetworking.Server
                     _receivedData = new Packet();
                     _receiveBuffer = new byte[NetworkSettings.DataBufferSize];
 
-                    NetworkingLogs.LogInfo($"Connected new client! {GetClientSlotAmount()} more clients can join.");
+                    //NetworkingLogs.LogInfo($"Connected new client! {GetClientSlotAmount()} more clients can join.");
                     
                     BeginRead();
                 }

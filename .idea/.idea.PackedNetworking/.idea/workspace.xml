@@ -17,14 +17,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb228b70-7236-4edf-afb2-0a430c5094cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PackedNetworking.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PackedNetworking/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ClientNetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ClientNetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/NetworkingManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackedNetworking/ServerNetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PackedNetworking/ServerNetworkBehaviour.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +172,7 @@
       <workItem from="1648294813644" duration="1622000" />
       <workItem from="1648968351556" duration="2204000" />
       <workItem from="1649077014125" duration="3392000" />
-      <workItem from="1649489140914" duration="1006000" />
+      <workItem from="1649489140914" duration="2449000" />
     </task>
     <servers />
   </component>
