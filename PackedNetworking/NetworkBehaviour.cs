@@ -149,7 +149,8 @@ namespace PackedNetworking
             if (BehaviourIsSet) return;
             if (!connectOnApplicationStart && isApplicationStart) return;
 
-            manager.UpdateSettings();
+            if(manager != null)
+                manager.UpdateSettings();
             
             if (IsServerBuild)
                 behaviour = new ServerBehaviour(NetworkSettings.MaxPlayers);
