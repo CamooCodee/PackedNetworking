@@ -53,8 +53,8 @@ namespace PackedNetworking.Client
             if (!IsConnected) return;
             
             IsConnected = false;
-            _tcp.DisconnectSocket();
-            _upd.DisconnectSocket();
+            _tcp?.DisconnectSocket();
+            _upd?.DisconnectSocket();
             NetworkingLogs.LogInfo("Disconnected from server!");
         }
 
