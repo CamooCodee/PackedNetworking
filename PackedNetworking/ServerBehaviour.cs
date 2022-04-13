@@ -18,6 +18,7 @@ namespace PackedNetworking.Server
         private TcpListener _tcpListener;
         private UdpClient _udpListener;
         private readonly Dictionary<int, Client> _clients = new Dictionary<int, Client>();
+        private readonly List<int> _connectedClients = new List<int>();
 
         internal event Action onClientConnect;
         internal event Action<int> onClientConnectionComplete;
@@ -39,6 +40,9 @@ namespace PackedNetworking.Server
                 return;
             }
             NetworkingLogs.LogInfo("STARTING SERVER");
+
+            onClientConnectionComplete += AddConnectedClient;
+            onClientDisconnect += RemoveConnectedClient;
             
             _tcpListener = new TcpListener(IPAddress.Any, NetworkSettings.Port);
             _tcpListener.Start();
@@ -217,20 +221,14 @@ namespace PackedNetworking.Server
 
         internal int[] GetAllConnectedClientIds()
         {
-            var idList = new List<int>();
-            for (var i = 0; i < _clients.Count; i++)
-            {
-                if(_clients[i].IsUsed)
-                    idList.Add(_clients[i].id);
-            }
-            return idList.ToArray();
+            return _connectedClients.ToArray();
         }
         
         public bool IsFull()
         {
-            for (int i = 1; i < _maxPlayers; i++)
+            foreach (var client in _clients.Values)
             {
-                if (!_clients[i].IsUsed)
+                if (!client.IsUsed)
                     return false;
             }
 
@@ -586,5 +584,8 @@ namespace PackedNetworking.Server
         {
             onClientConnectionComplete?.Invoke(clientId);
         }
+        
+        private void AddConnectedClient(int clientId) => _connectedClients.Add(clientId);
+        private void RemoveConnectedClient(int clientId) => _connectedClients.Remove(clientId);
     }
 }

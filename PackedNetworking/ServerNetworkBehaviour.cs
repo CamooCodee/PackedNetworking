@@ -17,6 +17,11 @@ namespace PackedNetworking.Server
         /// </summary>
         protected int[] ConnectedClientIds => ServerInstance.GetAllConnectedClientIds();
 
+        /// <summary>
+        /// Whether or not the number of clients equals the amount of clients allowed to connect.
+        /// </summary>
+        protected bool IsFull => ServerInstance.IsFull();
+        
         protected override void Awake()
         {
             if(BehaviourIsSet)
@@ -114,7 +119,7 @@ namespace PackedNetworking.Server
                 _packetListeners[type].Remove(handler);
         }
 
-        void OnPacket(Packet packet)
+        private void OnPacket(Packet packet)
         {
             var type = packet.GetType();
             if (!_packetListeners.ContainsKey(type))
